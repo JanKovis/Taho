@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CTahoCopy</class>
+ <widget class="QDialog" name="CTahoCopy">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>337</width>
+    <height>321</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>über Taho</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Autor:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Version:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lizenz:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>150</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>WWW:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>20</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">Dimitri Junker</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="la_vers">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>60</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_gpl">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>100</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>GPL V.3</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_dyj">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>150</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Autor</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_osm">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>150</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">OSM</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>150</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>oder</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>261</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Dieses Programm wurde mit QT Creator entwickelt.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>301</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Es verwendet die dynamisch dazu gelinkten QT-Bibliotheken.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>291</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Die erzeugten Karten unterstehen meist der Lizens von</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>280</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Openstreetmap, weiteres s.:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>280</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">© OSM </string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pb_gpl</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoCopy</receiver>
+   <slot>OnGpl()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>110</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_dyj</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoCopy</receiver>
+   <slot>OnDyj()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_osm</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoCopy</receiver>
+   <slot>OnOsmTaho()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>231</x>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoCopy</receiver>
+   <slot>OnOSMc()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>313</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnGpl()</slot>
+  <slot>OnDyj()</slot>
+  <slot>OnOsmTaho()</slot>
+  <slot>slot1()</slot>
+  <slot>OnOSMc()</slot>
+ </slots>
+</ui>

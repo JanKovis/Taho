@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CTahoOpt</class>
+ <widget class="QDialog" name="CTahoOpt">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>524</width>
+    <height>386</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Optionen</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>20</y>
+     <width>81</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>251</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Sprache</string>
+   </property>
+   <widget class="QComboBox" name="cb_lang">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>161</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string notr="true">Deutsch</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string notr="true">English</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string notr="true">Français</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>491</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Quelle</string>
+   </property>
+   <widget class="QPushButton" name="pb_update">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>20</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>update Quell-URLs</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cache gültig für:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="sbCache">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>20</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>20</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tage</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>251</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>maximale Anzahl Threads</string>
+   </property>
+   <widget class="QSpinBox" name="spinBox">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>161</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>491</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Packer (für KMZ &amp; GZ)</string>
+   </property>
+   <widget class="QLabel" name="la_zip">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>411</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Kommandozeile (KMZ):</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Kommandozeile (GZ):</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_parKMZ">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>60</y>
+      <width>341</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_parGZ">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>100</y>
+      <width>341</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_packer">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>20</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>130</y>
+      <width>461</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Platzhalter: $Q: Quelle; $Z: Zielfile; $L: Listfile; $ verdoppeln</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CTahoOpt</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CTahoOpt</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_update</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoOpt</receiver>
+   <slot>OnUpdSrc()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>520</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_lang</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>CTahoOpt</receiver>
+   <slot>change_lang(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_packer</sender>
+   <signal>clicked()</signal>
+   <receiver>CTahoOpt</receiver>
+   <slot>OnZip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>457</x>
+     <y>362</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnExpSrc()</slot>
+  <slot>OnUpdSrc()</slot>
+  <slot>OnNormal()</slot>
+  <slot>OnUsb()</slot>
+  <slot>change_lang(QString)</slot>
+  <slot>OnZip()</slot>
+ </slots>
+</ui>

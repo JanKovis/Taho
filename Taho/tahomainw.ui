@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TahoMainW</class>
+ <widget class="QMainWindow" name="TahoMainW">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>852</width>
+    <height>742</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Taho 4.07</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>501</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Kartenbereich</string>
+    </property>
+    <widget class="QLineEdit" name="le_lat1">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>20</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_lat2">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>120</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_lon1">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>70</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_lon2">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>70</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Länge1:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>20</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Breite 1:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>20</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grad</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>70</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grad</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>70</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Länge2:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>70</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grad</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>120</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Breite2:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>120</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grad</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>181</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Bereich grafisch aus Karte wählen</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_bbox">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>150</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>BBox Tool</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>631</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Ausgabe</string>
+    </property>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Benenne Files mit:</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rb_nbNr">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>41</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nr.</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rb_nbKoord">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>20</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Koord.</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rb_nbDir">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>20</y>
+       <width>61</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ordner</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_auto">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Auto</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_out">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>60</y>
+       <width>461</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_out">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>60</y>
+       <width>51</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pb_doTaho">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>20</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Erstelle Karten</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_help">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>60</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hilfe</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_quit">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>100</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Beenden</string>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tw_mapType">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>631</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Pixelkarten</string>
+     </attribute>
+     <widget class="QComboBox" name="cb_quelle">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>10</y>
+        <width>191</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quelle:</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>10</y>
+        <width>191</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Zoomstufen</string>
+      </property>
+      <widget class="QListWidget" name="lw_zoom">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>61</width>
+         <height>221</height>
+        </rect>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
+       </property>
+       <property name="flow">
+        <enum>QListView::TopToBottom</enum>
+       </property>
+       <property name="modelColumn">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+        <property name="checkState">
+         <enum>Checked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">2</string>
+        </property>
+        <property name="checkState">
+         <enum>Checked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">3</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">4</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">5</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">6</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">7</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">8</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">9</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">10</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">11</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">12</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">13</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">14</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">15</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">16</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">17</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">18</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+      </widget>
+      <widget class="QPushButton" name="pb_zAll">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>20</y>
+         <width>91</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>alle auswählen</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_z2">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>50</y>
+         <width>91</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>jedes 2. ausw.</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_z0">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>80</y>
+         <width>91</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>alle löschen</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Overlays:</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="lw_overl">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>141</width>
+        <height>191</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="l_bpp">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>30</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bits/Pixel:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cb_bpp">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>50</y>
+        <width>131</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string notr="true">8</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">24</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">32</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>90</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Größe:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cb_size">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>110</y>
+        <width>131</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>frei (ganzer Bereich in 1 File)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>keine (nur Kacheln 256*256)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">256*256</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">512*512</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">1024*1024</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">2048*2048</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">4096*4096</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">8192*8192</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">16384*16384</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>170</y>
+        <width>120</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Filetyp</string>
+      </property>
+      <widget class="QRadioButton" name="rb_png">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>41</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">png</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="rb_jpg">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>20</y>
+         <width>41</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">jpg</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="rb_pngt">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>82</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">png.tile</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="l_kal">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>40</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Kal.Files:</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="lw_kal">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>60</y>
+        <width>91</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string notr="true">Fugawi</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">Glopus</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">GMI</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">kml</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">OZI</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">Pathway</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">TTQV</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">UI-View</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">WorldFile</string>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Vektorkarten</string>
+     </attribute>
+     <widget class="QListWidget" name="lw_vect">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>10</y>
+        <width>256</width>
+        <height>241</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quelle:</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>852</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+    <addaction name="actionEinstellungen_laden"/>
+    <addaction name="actionEinstellungen_speichern"/>
+    <addaction name="separator"/>
+    <addaction name="actionBeenden"/>
+   </widget>
+   <widget class="QMenu" name="menuBearbeiten">
+    <property name="title">
+     <string>Bearbeiten</string>
+    </property>
+    <addaction name="actionKarten_erstellen"/>
+    <addaction name="actionOSMBugs_holen"/>
+    <addaction name="actionKMZ_erstellen"/>
+    <addaction name="separator"/>
+    <addaction name="actionOptionen"/>
+   </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="title">
+     <string>Hilfe</string>
+    </property>
+    <addaction name="actionHilfe"/>
+    <addaction name="separator"/>
+    <addaction name="actionInfo"/>
+   </widget>
+   <addaction name="menuDatei"/>
+   <addaction name="menuBearbeiten"/>
+   <addaction name="menuHilfe"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionEinstellungen_laden">
+   <property name="text">
+    <string>Einstellungen laden</string>
+   </property>
+  </action>
+  <action name="actionEinstellungen_speichern">
+   <property name="text">
+    <string>Einstellungen speichern</string>
+   </property>
+  </action>
+  <action name="actionKarten_erstellen">
+   <property name="text">
+    <string>Karten erstellen</string>
+   </property>
+  </action>
+  <action name="actionOSMBugs_holen">
+   <property name="text">
+    <string>OSMBugs holen</string>
+   </property>
+  </action>
+  <action name="actionKMZ_erstellen">
+   <property name="text">
+    <string>KMZ erstellen</string>
+   </property>
+  </action>
+  <action name="actionOptionen">
+   <property name="text">
+    <string>Optionen</string>
+   </property>
+  </action>
+  <action name="actionHilfe">
+   <property name="text">
+    <string>Hilfe</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+  <action name="actionBeenden">
+   <property name="text">
+    <string>Beenden</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pb_doTaho</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnDoTaho()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>583</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_z0</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnZ0()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>467</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_z2</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnZ2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>401</x>
+     <y>431</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>660</x>
+     <y>434</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_zAll</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnZAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_auto</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnAutoOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>23</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_out</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnGetOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>656</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_help</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnHelpB()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>621</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_quit</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnCancel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>614</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>655</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_bbox</sender>
+   <signal>clicked()</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnBnClickedBbox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>579</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_size</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnSelchangeSizec(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>590</x>
+     <y>487</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>512</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_quelle</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnSelchangeSourceP()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>159</x>
+     <y>390</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>358</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tw_mapType</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnSelchangedMapType(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lw_vect</sender>
+   <signal>itemChanged(QListWidgetItem*)</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnMapChanged(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>337</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>646</x>
+     <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lw_overl</sender>
+   <signal>itemChanged(QListWidgetItem*)</signal>
+   <receiver>TahoMainW</receiver>
+   <slot>OnMapChanged(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>450</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>658</x>
+     <y>560</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnDoTaho()</slot>
+  <slot>OnZ0()</slot>
+  <slot>OnZ2()</slot>
+  <slot>slot1()</slot>
+  <slot>OnZAll()</slot>
+  <slot>OnAutoOut()</slot>
+  <slot>OnGetOut()</slot>
+  <slot>OnHelpB()</slot>
+  <slot>OnCancel()</slot>
+  <slot>OnBnClickedBbox()</slot>
+  <slot>OnSelchangeSizec(int)</slot>
+  <slot>OnSelchangeSourceP()</slot>
+  <slot>OnSelchangedMapType(int)</slot>
+  <slot>OnMapChanged(QListWidgetItem*)</slot>
+ </slots>
+</ui>
