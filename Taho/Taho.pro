@@ -4,15 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-QT += network
 QT += concurrent
 
 TARGET = Taho
 TEMPLATE = app
-INCLUDEPATH +=    myLibsQT
 TRANSLATIONS =taho_fr.ts\
     taho_en.ts\
     taho_xx.ts
@@ -20,35 +18,13 @@ TRANSLATIONS =taho_fr.ts\
 SOURCES += main.cpp\
         tahomainw.cpp \
     ctahoopt.cpp \
-    myLibsQT/cpixmap.cpp \
-    myLibsQT/cmapsrc.cpp \
-    myLibsQT/cosmopt.cpp \
-    myLibsQT/urldownload.cpp \
     cdokmz.cpp \
-    ctahocopy.cpp \
-    myLibsQT/Logfile.cpp \
-    myLibsQT/cpath.cpp \
-    myLibsQT/cgeorect.cpp \
-    myLibsQT/cxmlfile.cpp \
-    myLibsQT/cosm.cpp \
-    myLibsQT/Vectmap.cpp \
-    myLibsQT/cgeopoint.cpp
+    ctahocopy.cpp
 
 HEADERS  += tahomainw.h \
     ctahoopt.h \
-    myLibsQT/cpixmap.h \
-    myLibsQT/cmapsrc.h \
-    myLibsQT/cosmopt.h \
-    myLibsQT/urldownload.h \
     cdokmz.h \
-    ctahocopy.h \
-    myLibsQT/Logfile.h \
-    myLibsQT/cpath.h \
-    myLibsQT/cgeorect.h \
-    myLibsQT/cxmlfile.h \
-    myLibsQT/cosm.h \
-    myLibsQT/Vectmap.h \
-    myLibsQT/cgeopoint.h
+    ctahocopy.h
 
 FORMS    += tahomainw.ui \
     ctahoopt.ui \
@@ -57,3 +33,14 @@ FORMS    += tahomainw.ui \
 
 RESOURCES += \
     taho.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../myLibsQT/release/ -lmyLibsQT
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../myLibsQT/debug/ -lmyLibsQT
+
+INCLUDEPATH += $$PWD/../myLibsQT
+DEPENDPATH += $$PWD/../myLibsQT
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../myLibsQT/release/libmyLibsQT.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../myLibsQT/debug/libmyLibsQT.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../myLibsQT/release/myLibsQT.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../myLibsQT/debug/myLibsQT.lib
