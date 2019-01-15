@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     myLibsQT/cgeorect.cpp \
     myLibsQT/cxmlfile.cpp \
     myLibsQT/cosm.cpp \
-    myLibsQT/Vectmap.cpp
+    myLibsQT/Vectmap.cpp \
+    myLibsQT/cgeopoint.cpp
 
 HEADERS  += tahomainw.h \
     ctahoopt.h \
@@ -53,3 +54,6 @@ FORMS    += tahomainw.ui \
     ctahoopt.ui \
     cdokmz.ui \
     ctahocopy.ui
+
+RESOURCES += \
+    taho.qrc

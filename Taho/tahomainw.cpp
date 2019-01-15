@@ -866,6 +866,15 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
 bool TahoMainW::loadZoomL(int zl)
 {
     QListWidgetItem *lwi=ui->lw_zoom->item(zl-1);
+
+    if (lwi == NULL)
+    {
+        QMessageBox::warning(
+                    this, tr("Warnung"),
+                    tr("Zoom %1 kommt wahrscheinlich aus Konfigurationsdatei, darf aber nicht benutzt werden."));
+        return false;
+    }
+
     if((lwi->flags()&Qt::ItemIsEnabled)==0)
         return false;
     else
@@ -876,7 +885,7 @@ bool TahoMainW::loadZoomL(int zl)
 void TahoMainW::OnSelchangeSizec(int size)
 {
     int breite=512;
-    for(int i=1;i<19;i++)
+    for(int i=1;i<ui->lw_zoom->count();i++)
     {
         QListWidgetItem *lwi=ui->lw_zoom->item(i-1);
         if(breite>=SizeP[size])
@@ -1105,20 +1114,27 @@ void TahoMainW::makePmap()
         msgBox.button(QMessageBox::Yes)->setText(tr("Log anzeigen"));
 
         if((data->errs&ERR_PIXM_CREATE)==ERR_PIXM_CREATE)
-            msgBox.setText( QObject::tr("Karte konnte nicht erzeugt werden, evtl. zu groß!"));
+        {
+            auto text = tr("Karte konnte nicht erzeugt werden, evtl. zu groß!");
+            if (sizeof(quintptr) == 4) // 32b build
+            {
+                text += tr("\n\nIhr Programm ist 32bit, versuchen Sie 64bit Version.");
+            }
+            msgBox.setText( text );
+        }
         else if((data->errs&ERR_PIXM_TILE)==ERR_PIXM_TILE)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile"));
         else if((data->errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
 //DYJ Taho 4.07f         else if((data->errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
+//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht heruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
         else if(mmList.isEmpty())
         {
-            msgBox.setText( QObject::tr("Nichts zu tuen, evtl kein Zoomlevel ausgewählt?"));
+            msgBox.setText( tr("Nichts zu tun, evtl kein Zoomlevel ausgewählt?"));
             data->errs=1024;
         }
         else if(data->errs>0)
-            msgBox.setText( QObject::tr("Unbekannter Fehler. S. Logfile"));
+            msgBox.setText( tr("Unbekannter Fehler. S. Logfile"));
 
 
         while(!data->m_errTxts.isEmpty())
@@ -1238,18 +1254,18 @@ void TahoMainW::makeVmap()
         msgBox.button(QMessageBox::Yes)->setText(tr("Log anzeigen"));
 
         if((data->errs&ERR_PIXM_TILE)==ERR_PIXM_TILE)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile"));
         else if((data->errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
 //DYJ Taho 4.07f         else if((data->errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
+//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht heruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
         else if(mmList.isEmpty())
         {
-            msgBox.setText( QObject::tr("Nichts zu tuen"));
+            msgBox.setText( tr("Nichts zu tun"));
             data->errs=1024;
         }
         else if(data->errs>0)
-            msgBox.setText( QObject::tr("Unbekannter Fehler. S. Logfile"));
+            msgBox.setText( tr("Unbekannter Fehler. S. Logfile"));
 
 
 

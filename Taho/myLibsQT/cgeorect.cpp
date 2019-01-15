@@ -15,6 +15,7 @@ CGeoRect::~CGeoRect()
 {
 
 }
+
 CGeoRect::CGeoRect(double north, double south, double west, double east,double maxLat/*=90*/)
 {
     init(north,south,west,east,maxLat);

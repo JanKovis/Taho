@@ -91,7 +91,7 @@ void CDoKmz::OnFsKmz()
     }
     else
         cPath=m_out;
-    QString path= QFileDialog::getSaveFileName(NULL,QObject::tr("Speicher KMZ Files"),cPath.makePath(PATH_PATH),QObject::tr("KMZ-Files(*.kmz)"));
+    QString path= QFileDialog::getSaveFileName(NULL,tr("Speicher KMZ Files"),cPath.makePath(PATH_PATH),tr("KMZ-Files(*.kmz)"));
     if(path.isEmpty())
        return;
 

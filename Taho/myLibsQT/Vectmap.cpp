@@ -131,14 +131,14 @@ void CVectmap::LoadTile(SDLM_DATA *data,QString zfName)
 						}
 					}
 				}
-                QString cmd="\""+data->m_packer+"\" "+param;
-                QProcess *mp=new QProcess();
+                QString cmd="\""+data->m_packer+"\" "+param;;
+                /*QProcess *mp = new QProcess();
                 if(!mp->startDetached(cmd))
                 {
                     QMessageBox::warning(NULL, QObject::tr("Vector-Tile"), QObject::tr("Fehler in unGz"),
                                                   QMessageBox::Ok);
                     return;
-                }
+                }*/
             }
 			//umbenennen
             QString quell,qfName;
