@@ -45,12 +45,12 @@ Die lonvia Tiles sind umgezogen, um so etwas besser zu behandeln habe ich den Ad
 QListWidget	*CMapSrc::m_ovrCtrlP;
 QListWidget	*CMapSrc::m_ovrCtrlV;
 QComboBox * CMapSrc::m_srcBox;
-QString CMapSrc::m_mySrc; //DYJ Taho 4.07c;
+QString CMapSrc::m_mySrc;
 
 QMap<QString,CMapSrc*> CMapSrc::m_mapSrc;
 
 QString CMapSrc::m_src="";
-QMap<QString,QString> COsm::m_osmIDs;/*DYJ Taho 4.07c */
+QMap<QString,QString> COsm::m_osmIDs;
 
 CMapSrc::~CMapSrc()
 {
@@ -71,31 +71,13 @@ CMapSrc::CMapSrc()
     m_kSize=0;
     m_mapsPF=0;
 }
-/*DYJ Taho 4.07d & 4.07i Start*/
 CMapSrc *CMapSrc::initV(QString name, QString url,bool isPrivate,unsigned char maxThreads, QString pref, int offset,double kSize,int mapsPF)
 {
-    CMapSrc *ret=NULL;
+    CMapSrc *ret=nullptr;
     if(offset==-1)	//API -> *.osm
         ret=initP(name,url,isPrivate,"",maxThreads,pref,253);
     else
         ret=initP(name,url,isPrivate,"",maxThreads,pref,254);
-
-     if(ret)	/*DYJ 1.05i */
-    {
-        ret->m_offset=offset;
-        ret->m_kSize=kSize;
-        ret->m_mapsPF=mapsPF;
-    }
-    return ret;
-}
-/*DYJ  Ende; alt:
-CMapSrc *CMapSrc::initV(QString name, QString url,QString timestamp,unsigned char maxThreads, QString pref, int offset,double kSize,int mapsPF)
-{
-    CMapSrc *ret=NULL;
-    if(offset==-1)	//API -> *.osm
-        ret=initP(name,url,timestamp,"",maxThreads,pref,253);
-    else
-        ret=initP(name,url,timestamp,"",maxThreads,pref,254);
 
      if(ret)
     {
@@ -105,14 +87,9 @@ CMapSrc *CMapSrc::initV(QString name, QString url,QString timestamp,unsigned cha
     }
     return ret;
 }
-*/
 Q_DECLARE_METATYPE(CMapSrc*)
 
-/*DYJ Taho 4.07d& 4.07i Start*/
 CMapSrc *CMapSrc::initP(QString name, QString url,bool isPrivate, QString ext,int maxThreads, QString pref,unsigned char maxZoom)
-/*DYJ  Ende; alt:
-CMapSrc *CMapSrc::initP(QString name, QString url,QString timestamp, QString ext,int maxThreads, QString pref,unsigned char maxZoom)
-*/
 {
     CMapSrc *ret;
     bool isNew=false;
@@ -125,15 +102,12 @@ CMapSrc *CMapSrc::initP(QString name, QString url,QString timestamp, QString ext
     }
     else
         ret=it.value();
-//DYJ Taho 4.07i     if(isNew||ret->m_timestamp.compare(timestamp)<0)
-//DYJ Taho 4.07i     {
 
-    ret->m_isPrivate=isPrivate;	//DYJ Taho 4.07d
+    ret->m_isPrivate=isPrivate;
     ret->m_name=name;
     ret->m_ext=ext;
     ret->m_url=url;
     ret->m_maxThreads=maxThreads;
-//DYJ Taho 4.07i     ret->m_timestamp=timestamp;
     if(pref.isEmpty())
         ret->m_pref=name.left(3);
     else
@@ -178,13 +152,6 @@ CMapSrc *CMapSrc::initP(QString name, QString url,QString timestamp, QString ext
             m_ovrCtrlV->sortItems();
          }
       break;
-        /*DYJ Taho 4.07d Start*/
-        /*DYJ  Ende; alt:
-
-    case 252:	//Obsolete
-        ret->m_type=MAP_OBS;
-        break;
-        */
     default:	//Pixel Basemap
         ret->m_type=MAP_BAS;
         ret->m_maxZoom=maxZoom;
@@ -193,16 +160,11 @@ CMapSrc *CMapSrc::initP(QString name, QString url,QString timestamp, QString ext
         break;
     }
     ret->m_useOvrs[0]=ret->m_useOvrs[1]=false;
-//DYJ Taho 4.07i     }
     return ret;
 
 }
 
-/*DYJ Taho 4.07d Start*/
 void CMapSrc::writeTaho(QString path,bool onlyPriv)
-/*DYJ  Ende; alt:
-void CMapSrc::writeTaho(QString path)
-*/
 {
     FILE *fTaho=fopen(path.toLatin1(),"w");
     if(fTaho)
@@ -217,16 +179,15 @@ void CMapSrc::writeTaho(QString path)
             CMapSrc *map=pos.value();
             QString name=pos.key();
             pos++;
-            if(!onlyPriv || map->m_isPrivate)	//DYJ Taho 4.07d
+            if(!onlyPriv || map->m_isPrivate)
             {
                 fprintf(fTaho,"\t\t<src>\n");
                 fprintf(fTaho,"\t\t\t<name>%s</name>\n",name.toStdString().c_str());
                 fprintf(fTaho,"\t\t\t<prefix>%s</prefix>\n",map->m_pref.toStdString().c_str());
                 fprintf(fTaho,"\t\t\t<url>%s</url>\n",map->m_url.toStdString().c_str());
-//DYJ Taho 4.07i                 fprintf(fTaho,"\t\t\t<timestamp>%s</timestamp>\n",map->m_timestamp.toStdString().c_str());
                 fprintf(fTaho,"\t\t\t<ext>%s</ext>\n",map->m_ext.toStdString().c_str());
                 fprintf(fTaho,"\t\t\t<type>%d</type>\n",map->m_type);
-                switch((int)map->m_type)
+                switch(static_cast<int>(map->m_type))
                 {
                 case MAP_BAS:
                     fprintf(fTaho,"\t\t\t<maxzoom>%d</maxzoom>\n",map->m_maxZoom);
@@ -234,7 +195,7 @@ void CMapSrc::writeTaho(QString path)
                 case MAP_VECT:
                     fprintf(fTaho,"\t\t\t<offset>%d</offset>\n",map->m_offset);
                     fprintf(fTaho,"\t\t\t<mapspf>%d</mapspf>\n",map->m_mapsPF);
-                case MAP_OSM:
+                [[clang::fallthrough]]; case MAP_OSM:
                     fprintf(fTaho,"\t\t\t<ksize>%f</ksize>\n",map->m_kSize);
                     break;
                 }
@@ -242,7 +203,6 @@ void CMapSrc::writeTaho(QString path)
             }
         }
         fprintf(fTaho,"\t</mapallsrc>\n");
-//DYJ Taho 4.07c Start
         fprintf(fTaho,"\t<OsmIds>\n");
         QMapIterator<QString, QString> iter(COsm::m_osmIDs);
 
@@ -255,7 +215,6 @@ void CMapSrc::writeTaho(QString path)
             fprintf(fTaho,"\t\t</ID>\n");
         }
         fprintf(fTaho,"\t</OsmIds>\n");
-//DYJ  Ende;
         fprintf(fTaho,"</taho>\n");
         fclose(fTaho);
     }
@@ -264,7 +223,6 @@ void CMapSrc::writeTaho(QString path)
 bool CMapSrc::readTaho(CXmlFile *xTaho)
 {
     bool ret=false;
-    //DYJ Taho 4.07c Start
     QString sOsmIDs;
     if(xTaho->readValB(sOsmIDs,"OsmIds"))
     {
@@ -279,20 +237,14 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
             COsm::m_osmIDs.insert(sName,sIDVal);
         }
     }
-    //DYJ  Ende;
     QString sMapsrc;
-    /*DYJ Taho 4.07d Start*/
     if(!xTaho->readValB(sMapsrc,"mapPubSrc"))
-    /*DYJ  Ende; alt:
-    if(!xTaho->readValB(sMapsrc,"mapallsrc"))
-    */
     {
         QString sMapsrcP;
         xTaho->readValB(sMapsrc,"mapsrc");
         xTaho->readValB(sMapsrcP,"mapovr");
         sMapsrc+=sMapsrcP;
     }
-    //DYJ Taho 4.07d Start
     bool isMysrc=false;
     if(sMapsrc.isEmpty())   //evtl mydefsrc.taho
     {
@@ -300,7 +252,6 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
         isMysrc=true;
     }
 
-    //DYJ  Ende;
     if(!sMapsrc.isEmpty())
     {
         QString sSrc;
@@ -308,11 +259,9 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
         while(xTaho->readValB(sSrc,sMapsrc,"src",&pos))
         {
             QString sName;
-//DYJ Taho 4.07i             QString sMapsrcTime="";
             xTaho->readValB(sName,sSrc,"name");
             QString sURL,sExt;
             xTaho->readValB(sURL,sSrc,"url");
-//DYJ Taho 4.07i             xTaho->readValB(sMapsrcTime,sSrc,"timestamp");
             xTaho->readValB(sExt,sSrc,"ext");
             if(sExt.isEmpty())
                 sExt=".png";
@@ -321,7 +270,7 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
             if(maxThreads==1000)	//altes Taho-File)
             {
                 QString slUrl=sURL;
-                slUrl.toLower();
+                slUrl=slUrl.toLower();
                 if(slUrl.indexOf("wanderreitkarte.de")==-1)
                     maxThreads=255;
                 else
@@ -330,43 +279,21 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
             QString tmpstr;
             switch(xTaho->readVal_intDef(sSrc,"type"))
             {
-            //DYJ Taho 4.07e Start
                 case MAP_DEF:
                     m_src=sName;
-            //DYJ  Ende;
-                case MAP_BAS:
-                    maxzoom=(unsigned char)xTaho->readVal_intDef(sSrc,"maxzoom",255);
-                case MAP_OVR:
+                [[clang::fallthrough]]; case MAP_BAS:
+                    maxzoom=static_cast<unsigned char>(xTaho->readVal_intDef(sSrc,"maxzoom",255));
+                [[clang::fallthrough]]; case MAP_OVR:
                     xTaho->readValB(tmpstr,sSrc,"prefix");
-                    /*DYJ Taho 4.07d & 4.07i Start*/
-                    initP(sName,sURL,isMysrc,sExt,(unsigned char)maxThreads,tmpstr,maxzoom);
-                    /*DYJ  Ende; alt:
-                    initP(sName,sURL,sMapsrcTime,sExt,(unsigned char)maxThreads,tmpstr,maxzoom);
-                    */
-
+                    initP(sName,sURL,isMysrc,sExt,static_cast<unsigned char>(maxThreads),tmpstr,maxzoom);
                     break;
                 case MAP_VECT:
                     xTaho->readValB(tmpstr,sSrc,"prefix");
-                    /*DYJ Taho 4.07d & 4.07i Start*/
-                    initV(sName,sURL,isMysrc,(unsigned char)maxThreads,tmpstr,xTaho->readVal_intDef(sSrc,"offset"),xTaho->readVal_dblDef(sSrc,"ksize",1),xTaho->readVal_intDef(sSrc,"mapspf",1000));
-                    /*DYJ  Ende; alt:
-                    initV(sName,sURL,sMapsrcTime,(unsigned char)maxThreads,tmpstr,xTaho->readVal_intDef(sSrc,"offset"),xTaho->readVal_dblDef(sSrc,"ksize",1),xTaho->readVal_intDef(sSrc,"mapspf",1000));
-                    */
-
+                    initV(sName,sURL,isMysrc,static_cast<unsigned char>(maxThreads),tmpstr,xTaho->readVal_intDef(sSrc,"offset"),xTaho->readVal_dblDef(sSrc,"ksize",1),xTaho->readVal_intDef(sSrc,"mapspf",1000));
                     break;
                 case MAP_OSM:
                     xTaho->readValB(tmpstr,sSrc,"prefix");
-                    /*DYJ Taho 4.07d & 4.07i Start*/
-                    initV(sName,sURL,isMysrc,(unsigned char)maxThreads,tmpstr,-1,xTaho->readVal_dblDef(sSrc,"ksize",1),0);
-                    /*DYJ  Ende; alt:
-                    initV(sName,sURL,sMapsrcTime,(unsigned char)maxThreads,tmpstr,-1,xTaho->readVal_dblDef(sSrc,"ksize",1),0);
-                    */
-                    /*DYJ Taho 4.07d Start*/
-                    /*DYJ  Ende; alt:
-                break;
-            case MAP_OBS:
-                initP(sName,"",sMapsrcTime,"",0,"",252);
-                    */
+                    initV(sName,sURL,isMysrc,static_cast<unsigned char>(maxThreads),tmpstr,-1,xTaho->readVal_dblDef(sSrc,"ksize",1),0);
             }
             ret=true;
         }
@@ -397,7 +324,7 @@ void CMapSrc::initBoxes(QComboBox * src,QListWidget *ovr,QListWidget *vect,int n
         QString name=it.key();
         CMapSrc *map=it.value();
         it++;
-        switch((int)map->m_type)
+        switch(static_cast<int>(map->m_type))
         {
             case MAP_BAS:	//Pixel Basemap
                 if(m_srcBox)
@@ -453,7 +380,7 @@ void CMapSrc::initBoxes(QComboBox * src,QListWidget *ovr,QListWidget *vect,int n
 }
 CMapSrc * CMapSrc::lookup(QString name)
 {
-    CMapSrc *ret=NULL;
+    CMapSrc *ret=nullptr;
     QMap<QString,CMapSrc *>::iterator it=m_mapSrc.find(name);
     if(it!=m_mapSrc.end())
         ret=it.value();
@@ -525,7 +452,7 @@ void CMapSrc::select(QString name,int action,int nr)
 void CMapSrc::writeTahoSelected(QTextStream &oFile, MapType type, int nr)
 {
     QString name;
-    switch((int)type)
+    switch(static_cast<int>(type))
     {
         case MAP_BAS:
             name=m_srcBox->currentText();
@@ -576,7 +503,7 @@ bool CMapSrc::hatUnbekannteID()
              if(idValue.isEmpty())
              {
                  bool ok;
-                 idValue=QInputDialog::getText(NULL,QObject::tr("Bitte ID eingeben"),idName,QLineEdit::Normal,"",&ok);
+                 idValue=QInputDialog::getText(nullptr,QObject::tr("Bitte ID eingeben"),idName,QLineEdit::Normal,"",&ok);
                  if(ok)
                  {
                      COsm::m_osmIDs.insert(idName,idValue);
@@ -584,7 +511,7 @@ bool CMapSrc::hatUnbekannteID()
                  }
                  else
                  {
-                     QMessageBox::warning(NULL, "", QObject::tr("Bitte andere Quelle wählen oder sich auf der Homepage anmelden"),
+                     QMessageBox::warning(nullptr, "", QObject::tr("Bitte andere Quelle wählen oder sich auf der Homepage anmelden"),
                                                    QMessageBox::Ok);
                     ret=true;
                  }

@@ -13,20 +13,17 @@ class CTahoOpt : public QDialog, public COsmOpt
     Q_OBJECT
 
 public:
-    explicit CTahoOpt(QWidget *parent = 0);
+    explicit CTahoOpt(QWidget *parent = nullptr);
     ~CTahoOpt();
-    void	setCache(unsigned int tage);
-    unsigned int	getCache();
-//DYJ Taho 4.07j     void setRelPath(bool isRel);	//Absolute Pfade
-//DYJ Taho 4.07j     bool getRelPath();
+    void	setCache(int tage);
+    int	getCache();
     QString	getZipPath();
     void setZipPath(QString path);
     QString	getZipPar();
     void setZipPar(QString par);
     void setUnGzPar(QString par);
     QString	getUnGzPar();
-    unsigned int	m_tasks;
-    int		m_uaID;
+    int	m_tasks;
     QTranslator *m_pLanguage;
 protected:
     void changeEvent(QEvent *e);
@@ -34,10 +31,7 @@ protected:
 private:
     Ui::CTahoOpt *ui;
 public slots:
-    //DYJ Taho 4.07d     void OnExpSrc();
     void OnUpdSrc();
-//DYJ Taho 4.07j 	    void OnNormal();
-//DYJ Taho 4.07j 	    void OnUsb();
     void change_lang(QString lang);
     void OnZip();
     };

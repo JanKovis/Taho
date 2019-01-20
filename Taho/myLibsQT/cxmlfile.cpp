@@ -25,12 +25,11 @@ CXmlFile::~CXmlFile()
 
 }
 
-/*DYJ Doku1.03a Start*/
 /*** ------------------------------------------------------------------------ ***/
 /*	bool CXmlFile::read2Buf(QString pfad, const char *codec)					*/
 /*	Liest ein File in einen Buffer, dabei kann ein Codec  z.B. UTF-8 angegeben werden	*/
 /*	Parameter:	pfad: Pfad des Files											*/
-//              codec: Name des Codec oder NULL
+//              codec: Name des Codec oder nullptr
 /*	Ergebnis:	FALSE falls File nicht existiert    							*/
 /*	12.5.18 von Dimitri Junker	DYJ 1.03a               						*/
 /*** ------------------------------------------------------------------------ ***/
@@ -41,13 +40,11 @@ bool CXmlFile::read2Buf(QString pfad)
         return false;
     m_fileLen=(unsigned long)gpxFile.size();
     QTextStream in(&gpxFile);
-    /*DYJ Doku1.03a Start*/
     m_sBuf = in.readLine();
     QString codec=readAttrValS(m_sBuf,"encoding");
 
     if(!codec.isEmpty())
         in.setCodec(codec.toLatin1());
-    /*DYJ  Ende; */
 
     m_sBuf = in.readAll();
 
@@ -162,7 +159,7 @@ bool CXmlFile::readValB(QString &val,QString &quell,QString tag, int *pPos,QStri
 int CXmlFile::readVal_intDef(QString &quell, QString tag, int def,int *start)
 {
     QString val;
-    if(!readValB(val,quell,tag,start,NULL,TRIM|ELIM_TAGS))
+    if(!readValB(val,quell,tag,start,nullptr,TRIM|ELIM_TAGS))
         return def;
     else
     {
@@ -236,11 +233,7 @@ QString CXmlFile::readAttr(QString &quell, QString tag, int *pPos)
             if(quell[posE-1]=='/')
                 posE--;
             posAttr=pos+start.size();
-            /*DYJ Taho 4.07h Start*/
             ret=quell.mid(posAttr,posE-posAttr);
-            /*DYJ  Ende; alt:
-            ret=quell.mid(posAttr,posE-posAttr-1);
-            */
             if(pPos)
                 *pPos=posN;
         }
@@ -285,7 +278,7 @@ bool CXmlFile::read2BufFromZip(QString zipFile, QString filename)
     //	param.Format("e -tzip \"%s\" \"%s\"",kmzPfad,pfad);
         QString tmpF=QDir::tempPath();
         QString param;
-        QString fldr=tmpF+tmpnam(NULL);
+        QString fldr=tmpF+tmpnam(nullptr);
         if(fldr.endsWith("."))
             fldr.chop(1);
         if(!fldr.endsWith("/"))
@@ -312,7 +305,7 @@ bool CXmlFile::read2BufFromZip(QString zipFile, QString filename)
         ZeroMemory( &sinfo, sizeof(sinfo) );
         sinfo.cb = sizeof(sinfo);
         ZeroMemory( &pinfo, sizeof(pinfo) );
-        bool bRet = CreateProcess(NULL,param.GetBuffer(1000),NULL,NULL,TRUE,0,NULL,NULL,&sinfo,&pinfo);
+        bool bRet = CreateProcess(nullptr,param.GetBuffer(1000),nullptr,nullptr,TRUE,0,nullptr,nullptr,&sinfo,&pinfo);
 
         if (!bRet) {
             std::cout << "Fehler: " << GetLastError();

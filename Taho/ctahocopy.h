@@ -12,7 +12,7 @@ class CTahoCopy : public QDialog
     Q_OBJECT
 
 public:
-    explicit CTahoCopy(QString &vers, QWidget *parent = 0);
+    explicit CTahoCopy(QString &vers, QWidget *parent = nullptr);
 //    CTahoCopy(QString &vers,QWidget *parent = 0);   // Standardkonstruktor
 
     ~CTahoCopy();
@@ -20,7 +20,7 @@ public slots:
     void OnGpl();
     void OnDyj();
     void OnOsmTaho();
-    void OnOSMc();	//DYJ Taho 4.04c
+    void OnOSMc();
 protected:
     void changeEvent(QEvent *e);
 
