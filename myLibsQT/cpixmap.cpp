@@ -99,7 +99,7 @@ CPixmap::CPixmap(int zoom, int sizeP,int xloop,int yloop,int nameBy,unsigned int
     m_xtile=xloop;
     m_ytile=yloop;
     m_maxCacheDays=maxCacheDays;
-    m_bMap=NULL;
+    m_bMap=nullptr;
 }
 
 CPixmap::CPixmap(int zoom, int xloop, int yloop, int xsize, int ysize, QString pfad,QImage **bMap, QRect rMap, int bpp)
@@ -113,7 +113,7 @@ CPixmap::CPixmap(int zoom, int xloop, int yloop, int xsize, int ysize, QString p
     m_pfad=pfad;
     m_bpp=bpp;
     m_bMap=bMap;
-    *m_bMap=NULL;
+    *m_bMap=nullptr;
     m_filename="";
     m_pixExt="";
     m_zoom=zoom;
@@ -204,37 +204,20 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
                             draw=false;
                         else
                         {
-                            /*DYJ Taho 4.07f Start*/
                             tile1Path=data->m_tna;
                             err|= ERR_PIXM_TILE;
-                            /*DYJ  Ende; alt:
-                            switch(osm.getsaveTileWithCache(x,y,tile1Path,&errTxt,true))
-                            {
-                            case 1:	//Laden erfolglos
-                                tile1Path=data->m_tna;
-                                err|= ERR_PIXM_TILE;
-                                break;
-                            case 2: //Laden erfolglos aber altes File vorhanden
-                                err|= ERR_PIXM_TILE_MAPNIK_OLD;
-                                break;
-                            case 0:
-                                err|= ERR_PIXM_TILE_MAPNIK;
-                                break;
-                            }
-                            */
-                            data->m_errTxts.append(errTxt);	//CHG: TAHO 2.10c DYJ
-    //DYJ Taho 4.07f err|= ERR_PIXM_TILE_MAPNIK;
+                            data->m_errTxts.append(errTxt);
                         }
                         break;
                     case 2: //Laden erfolglos aber altes File vorhanden
-                        data->m_errTxts.append(errTxt);	//CHG: TAHO 2.10c DYJ
+                        data->m_errTxts.append(errTxt);
                         err|= ERR_PIXM_TILE_OLD;
                         break;
-                    case 3: //y ungültig ->schwarz	//CHG: DYJTracker 1.01a DYJ
+                    case 3: //y ungültig ->schwarz
                         draw=false;
                         break;
                     }
-                    if(draw)	//CHG: DYJTracker 1.01a DYJ
+                    if(draw)
                     {
                         QImage tile(tile1Path);
                         gImg.drawImage( (x-xtile1)*tilesize, (y-ytile1)*tilesize,tile);
@@ -301,12 +284,7 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
         case 0:	//8Bit/Pixel
             {
             QRect rc(0, 0, bImg32.width(), bImg32.height());
-            /*DYJ Taho 4.06a Start*/
             QImage bImg8 = bImg32.convertToFormat(QImage::Format_Indexed8);
-            /*DYJ  Ende; alt:
-            QImage bImg8(m_widthX, m_widthY,QImage::Format_Indexed8);	//8Bit/Pixel Bild	//CHG: TAHO 2.10a SG
-            bImg8 = bImg32.copy(rc);
-            */
             if(saveFile)
                 ok=bImg8.save(savePath);
             if(m_bMap)
@@ -946,11 +924,7 @@ void CPixmap::LoadTile(SDLM_DATA *data,int overlay)
     QString addExt="";
     if(!data->m_pictType.left(4).compare(".png",Qt::CaseInsensitive))
         addExt=data->m_pictType.mid(4);
-    /*DYJ Taho 4.07f Start*/
     switch(osm.getsaveTileWithCache(m_xtile,m_ytile,tile1Path,&errTxt,addExt))
-    /*DYJ  Ende; alt:
-    switch(osm.getsaveTileWithCache(m_xtile,m_ytile,tile1Path,&errTxt,false,addExt))
-    */
     {
     case 1:	//Laden erfolglos
         data->m_errTxts.append(errTxt);

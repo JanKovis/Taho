@@ -23,9 +23,7 @@ CTahoOpt::CTahoOpt(QWidget *parent) :
     ui(new Ui::CTahoOpt)
 {
     ui->setupUi(this);
-//DYJ Taho 4.07j     m_pDefPrg=ui->rb_pfadPrg;
-//DYJ Taho 4.07j     m_pDefED=ui->rb_pfadED;
-    m_tasks = QThread::idealThreadCount();
+    m_tasks = abs(QThread::idealThreadCount());
 
 }
 
@@ -37,42 +35,13 @@ CTahoOpt::~CTahoOpt()
 
 /////////////////////////////////////////////////////////////////////////////
 // Dialogfeld CTahoOpt
-/*
 
-CTahoOpt::CTahoOpt(CWnd* pParent)
-    : CMultiLanguageDialog(CTahoOpt::IDD, pParent)
-{
-    ui->setupUi(this);
-    m_cache = 0;
-    m_nLang = -1;
-    m_zipPath = _T("");
-    m_zipPar = _T("");
-    m_relPath = -1;
-    m_unGzPar = _T("");
-    m_uaID = -1;
-    m_langCB = IDC_LANG;
-}
-
-
-*/
 /////////////////////////////////////////////////////////////////////////////
 // Behandlungsroutinen für Nachrichten CTahoOpt
-/*DYJ Taho 4.07d Start*/
-/*DYJ  Ende; alt:
-
-void CTahoOpt::OnExpSrc()
-{
-    expSrc();
-}
-*/
-
-/*DYJ Taho 3.08b Start*/
 void CTahoOpt::OnUpdSrc()
 {
     COsmOpt::OnUpdSrc();
 }
-/*DYJ  Ende; */
-
 
 void CTahoOpt::change_lang(QString lang)
 {
@@ -133,46 +102,15 @@ void CTahoOpt::OnZip()
 
 
 }
-/*DYJ Taho 4.07j Start*/
-/*DYJ  Ende; alt:
-
-void CTahoOpt::OnNormal()
-{
-    setDefPathIsPrg(false);
-    setRelPath(false);
-}
-
-void CTahoOpt::OnUsb()
-{
-    setDefPathIsPrg(true);
-    setRelPath(true);
-
-}
-*/
-
-void	CTahoOpt::setCache(unsigned int tage)
+void	CTahoOpt::setCache(int tage)
 {
     ui->sbCache->setValue(tage);
 }
 
-unsigned int	CTahoOpt::getCache()
+int CTahoOpt::getCache()
 {
     return ui->sbCache->value();
 }
-/*DYJ Taho 4.07j Start*/
-/*DYJ  Ende; alt:
-
-void CTahoOpt::setRelPath(bool isRel)	//Absolute Pfade
-{
-    ui->rb_pfadA->setChecked(!isRel);
-    ui->rb_pfadR->setChecked(isRel);
-}
-
-bool CTahoOpt::getRelPath()
-{
-    return ui->rb_pfadR->isChecked();
-}
-*/
 QString	CTahoOpt::getZipPath()
 {
     return ui->la_zip->text();

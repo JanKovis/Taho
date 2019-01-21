@@ -10,12 +10,6 @@
 #include <QMessageBox>
 #include <QDebug>
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
-
 //////////////////////////////////////////////////////////////////////
 // Konstruktion/Destruktion
 //////////////////////////////////////////////////////////////////////
@@ -106,7 +100,7 @@ void CVectmap::LoadTile(SDLM_DATA *data,QString zfName)
 		case 2: //Laden erfolglos aber altes File vorhanden
             data->m_errTxts.append(tile1Path.mid(1)+"<br>\r\n");
             data->errs|= ERR_PIXM_TILE_OLD;
-		case 0:	//OK
+        [[clang::fallthrough]]; case 0:	//OK
 			//entpacken
             if(!data->m_packer.isEmpty() && !data->m_unGz.isEmpty())
 			{
@@ -135,7 +129,7 @@ void CVectmap::LoadTile(SDLM_DATA *data,QString zfName)
                 /*QProcess *mp = new QProcess();
                 if(!mp->startDetached(cmd))
                 {
-                    QMessageBox::warning(NULL, QObject::tr("Vector-Tile"), QObject::tr("Fehler in unGz"),
+                    QMessageBox::warning(nullptr, QObject::tr("Vector-Tile"), QObject::tr("Fehler in unGz"),
                                                   QMessageBox::Ok);
                     return;
                 }*/

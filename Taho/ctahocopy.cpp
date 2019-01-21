@@ -67,7 +67,6 @@ void CTahoCopy::OnOsmTaho()
     QDesktopServices::openUrl(QUrl(url,QUrl::TolerantMode));
 
 }
-//DYJ Taho 4.04c Start
 void CTahoCopy::OnOSMc()
 {
     //:put here the abreviation of the new Language (for ex. en for english, fr for frensh, es for spanish,...
@@ -81,7 +80,6 @@ void CTahoCopy::OnOSMc()
     QDesktopServices::openUrl(QUrl(url,QUrl::TolerantMode));
 
 }
-//DYJ  Ende;
 
 void CTahoCopy::changeEvent(QEvent *e)
 {

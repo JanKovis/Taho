@@ -34,73 +34,6 @@
 
 //#pragma comment ( lib, "wininet.lib")
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
-
-/*DYJ Taho 4.07d Start*/
-/*DYJ  Ende; alt:
-
-// obsolete Quellen hier eintragen: obsName
-QString ObsName[]={"Osmarender","Cycle1","Cycle2","Mapnik(std)","Mapnik", "CompTeddy latest","CompTeddy old","Osmbrowser","Öpnv","Germany","Reit&Wanderk.","OpenPisteMap","MapQuest-OSM","MapQuest-Aerial","Ã–pnv","Hills","Land Shading","Hill Shading","By Night","Contours","osm-labels-en","osm-labels-de","osm-labels-fr",""};//DYJ Taho 4.04b
-
-
-//DYJ Taho 4.04a Start
-QString SrcName[ANZ_SRC]={"lokal Dir","Mapnik(de)","Cycle","Wikipedia OSM","Hikebikes","No Label","Wikimedia"};
-QString SrcPref[ANZ_SRC]={"Dir","MAPDE","CYC","WOSM","HBI","NOL","WMED"};
-
-QString SrcUrl[ANZ_SRC]={
-                "file:///",                                     //Lokales Dir
-            "http://a.tile.openstreetmap.de/tiles/osmde",		//Mapnik de
-            "http://a.tile.opencyclemap.org/cycle",				//Cycle
-                "http://a.tiles.wmflabs.org/osm",			//Wikipedia OSM
-            "http://a.tiles.wmflabs.org/hikebike",          	//Hikebikes
-               "http://a.tiles.wmflabs.org/osm-no-labels",     	//No Label
-               "https://maps.wikimedia.org/osm-intl"			//Wikimedia
-};
-QString SrcExt[ANZ_SRC]={
-            "",					//Lokal Endung unbekannt
-            ".png",		//Mapnik de
-            ".png",		//Cycle
-            ".png",		//Wikipedia OSM
-            ".png",		//Hikebikes
-            ".png",		//No Label
-            ".png"		//Wikimedia
-};
-UCHAR maxZoom[ANZ_SRC]={19,17,17,18,18,17,18};
-UCHAR SrcMaxThreads[ANZ_SRC]={255,255,255,255,255,255,255};
-
-
-
-QString OvrName[ANZ_OVR]={"Seamark","Sport","Topo","Lonvia's Hiking","Lonvia's Cycling"};
-
-QString OvrUrl[ANZ_OVR]={
-            "http://tiles.openseamap.org/seamark",				//seamark
-            "http://tiles.openseamap.org/sport",				//Sport
-            "http://www.wanderreitkarte.de/topo",				//Topo
-            "http://tile.waymarkedtrails.org/hiking",						//Lonvia´s Hiking
-            "http://tile.waymarkedtrails.org/cycling",						//Lonvia´s cycling
-
-        };
-UCHAR OvrMaxThreads[ANZ_OVR]={255,255,1,255,255};
-//die Vektorkarten
-
-
-
-QString VecName[ANZ_VECT]={"gwdg latest",
-                            "SRTM","OpenStreetMap"};
-QString VecPref[ANZ_VECT]={"GWD","SRTM","OSM"};
-QString VecUrl[ANZ_VECT]={"http://ftp5.gwdg.de/pub/misc/openstreetmap/teddynetz.de/latest/img",
-            "http://osm.smash-net.org/srtm",
-            "http://xapi.openstreetmap.org/api/0.6/map?bbox=$W,$S,$E,$N"};
-
-int VecOffset[ANZ_VECT]={63240001,53240001,-1};
-double VecKsize[ANZ_VECT]={1,1,100};
-int VecMapPF[ANZ_VECT]={1000,0,0};
-UCHAR VecMaxThreads[ANZ_VECT]={255,255,255};
-*/
 
 //////////////////////////////////////////////////////////////////////
 // Konstruktion/Destruktion
@@ -133,11 +66,7 @@ COsm::~COsm()
 //			2: konnte nicht geladen werden aber altes vorhanden
 //			3: y nicht im erlaubten Bereich -> schwarz
 
-/*DYJ Taho 4.07f Start*/
 int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,QString addExt)
-/*DYJ  Ende; alt:
-int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool useStd,QString addExt)
-*/
 {
     QString path2,oldFile="";
     int ret=1;
@@ -148,12 +77,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
         x-=anzTilesInZoom;
     if(y<0||y>=anzTilesInZoom)
         return 3;
-    /*DYJ Taho 4.07f Start*/
-    /*DYJ  Ende; alt:
-    if(useStd)
-        path2=QString("%1Standard/%2/%3").arg(m_tahCache).arg(m_zoom).arg(x);
-    else
-    */
     path2=QString("%1%2/%3").arg(m_tahCache).arg(m_zoom).arg(x);
     file=QString("%1/%2%3%4").arg(path2).arg(y).arg(m_tileExt).arg(addExt);
     QDir dirH;
@@ -176,7 +99,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
 
     }
     QString url;
-    /*DYJ Taho 4.07c & 4.07d Start*/
     bool ok=FALSE;
     QString sUrl,sX,sY,sZ;
     sX=QString("%1").arg(x);
@@ -225,55 +147,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
     }
     else
         url=QString("%1/%2/%3/%4%5").arg(m_tilesource).arg(m_zoom).arg(x).arg(y).arg(m_tileExt);
-
-    /*DYJ  Ende; alt:
-    if(useStd)
-        url=QString("%1/%2/%3/%4%5").arg(SrcUrl[BAS_STD]).arg(m_zoom).arg(x).arg(y).arg(m_tileExt);
-    else if(m_tilesource.indexOf("$Z")>-1 && m_tilesource.indexOf("$X")>-1 &&m_tilesource.indexOf("$Y")>-1)
-    {
-        QString sUrl,sX,sY,sZ;
-        sX=QString("%1").arg(x);
-        sY=QString("%1").arg(y);
-        sZ=QString("%1").arg(m_zoom);
-        sUrl=m_tilesource;
-        for(int i=0;i<sUrl.size();i++)
-        {
-            if(sUrl[i]=='$')
-            {
-                switch(sUrl.at(i+1).toLatin1())
-                {
-                case '$':
-                    sUrl.remove(i);
-                    break;
-                case 'X':
-                    sUrl.remove(i,2);
-                    sUrl.insert(i,sX);
-                    break;
-                case 'Y':
-                    sUrl.remove(i,2);
-                    sUrl.insert(i,sY);
-                    break;
-                case 'Z':
-                    sUrl.remove(i,2);
-                    sUrl.insert(i,sZ);
-                    break;
-                }
-            }
-        }
-        url=sUrl;
-    }
-    else
-        url=QString("%1/%2/%3/%4%5").arg(m_tilesource).arg(m_zoom).arg(x).arg(y).arg(m_tileExt);
-}
-    */
-
-
-
-
-
-
-
-
     QString urlStart;
     static char startwerta='a',startwert1='1';
     if(url.startsWith("http://a."))
@@ -290,7 +163,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
             startwert1='1';
         url.replace(12,1,startwert1);
     }
-    //DYJ Taho 4.07g Start
     else if(url.startsWith("https://a."))
     {
         startwerta++;
@@ -305,7 +177,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
             startwert1='1';
         url.replace(13,1,startwert1);
     }
-    //DYJ  Ende;
     urlStart=url;
     while(ret)
     {
@@ -348,26 +219,13 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
                         {
                             ret=0;
                             if(pErrTxt)
-                            {
-                                /*DYJ Taho 4.07f Start*/
-                                /*DYJ  Ende; alt:
-                                if(useStd)
-                                    *pErrTxt+=QObject::tr("\r\n\t\tBenutze Standard-Tiles<br>\r\n");
-                                else
-                                */
                                     *pErrTxt="";
-                            }
-
                         }
                         else
                         {
                             bool isHtml=false;
                             QString sHead=head,fileHtml="";
-                            /*DYJ Taho 4.07h Start*/
                             isHtml=sHead.indexOf("<!DOCTYPE HTML",0,Qt::CaseInsensitive)!=-1 ||sHead.indexOf("<HTML",0,Qt::CaseInsensitive)!=-1;
-                            /*DYJ  Ende; alt:
-                            isHtml=sHead.indexOf("<!DOCTYPE HTML",0,Qt::CaseInsensitive)!=-1;
-                            */
                             QFile fi(file);
                             if(isHtml)
                             {
@@ -423,7 +281,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
                 url.replace(12,1,'4');
             else if(url.startsWith("http://otile4"))
                 url.replace(12,1,'1');
-            //DYJ Taho 4.07g Start
             else if(url.startsWith("https://a."))
                 url.replace(8,1,'b');
             else if(url.startsWith("https://b."))
@@ -438,7 +295,6 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,bool 
                 url.replace(13,1,'4');
             else if(url.startsWith("https://otile4"))
                 url.replace(13,1,'1');
-            //DYJ  Ende;
             else
                 break;
             if(!url.compare(urlStart))
@@ -586,7 +442,7 @@ void COsm::convGpxAscShrt(QString zielTxt, QString zielGps, QString quell, bool 
 
 QString COsm::URLDownloadToStr(QString &url)
 {
-    QString tmpF=tmpnam( NULL ),ret="";
+    QString tmpF=tmpnam( nullptr ),ret="";
 
     if(urlDownload::downloadFile(url, tmpF)==0)
     {
