@@ -20,8 +20,6 @@ typedef struct
 
 #define ERR_PIXM_TILE 1
 #define ERR_PIXM_TILE_OLD 2
-//DYJ Taho 4.07f #define ERR_PIXM_TILE_MAPNIK 4
-//DYJ Taho 4.07f #define ERR_PIXM_TILE_MAPNIK_OLD 8
 #define ERR_PIXM_SAVE 16
 #define ERR_PIXM_KAL 32
 #define ERR_PIXM_CANCEL 64
@@ -40,7 +38,7 @@ typedef struct
     int m_done;
     int m_nameBy;
     bool m_vector;
-    unsigned int m_maxCacheDays;
+    int m_maxCacheDays;
     int errs;
     QStringList m_errTxts;
     QString m_tna;
@@ -84,13 +82,10 @@ public:
     CPixmap(int zoom, int xloop,int yloop,int xsize,int ysize,QString pfad,QImage **bMap,QRect rMap,int bpp);
     CPixmap(int zoom, int size, int xloop,int yloop,int nameBy,unsigned int maxCacheDays,QString pfad,int bpp=2,QString ext=".png",int sizeX=0,int sizeY=0,QString prefix="OSM");	//CHG: TAHO 2.11a DYJ
 
-
-//	CPixmap(MAKEMAPS *map,QString prefix, int xsize,int ysize,QString pfad,Bitmap **bMap,Rect rMap,int bpp);
-//	CPixmap(MAKEMAPS *map,QString prefix, SDLM_DATA *data);
-    void LoadTile(SDLM_DATA *data,int overlay=0);	//CHG: TAHO 2.11a DYJ
+    void LoadTile(SDLM_DATA *data,int overlay=0);
     unsigned int m_maxCacheDays;
-    int MakeMapCal(bool *pMakeKal,QString &PWconvBatchname,CGeoRect *pgRect=NULL);
-    void MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect=NULL, bool cacheMap=false);
+    int MakeMapCal(bool *pMakeKal,QString &PWconvBatchname,CGeoRect *pgRect=nullptr);
+    void MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect=nullptr, bool cacheMap=false);
     static void Ini_batch_PWMapConvert(QString filestub);
     virtual ~CPixmap();
     QString m_filename;

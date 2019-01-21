@@ -14,11 +14,6 @@
 #include <cxmlfile.h>
 #include <QStandardPaths>
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
 
 //////////////////////////////////////////////////////////////////////
 // Konstruktion/Destruktion
@@ -29,17 +24,12 @@ CLogfile::CLogfile()
     if(!m_path.isEmpty())
 		return;
     QString exePath=QApplication::applicationFilePath();
-    /*DYJ Taho 4.07k Start*/
     QStringList paths = QStandardPaths::standardLocations(QStandardPaths::TempLocation);
     if(!paths.size())
         return;
     CPath path,pathE(exePath);
     path.setComp(paths[0],PATH_PATH);
     QString logname=pathE.makePath(PATH_FN)+"_log";
-    /*DYJ  Ende; alt:
-    CPath path(exePath);
-    QString logname=path.makePath(PATH_FN)+"_log";
-    */
     path.setComp(logname,PATH_FN);
     path.setComp("html",PATH_EXT);
     m_path=path.makePath();

@@ -78,7 +78,7 @@ Fehler bei der Zoom-Level-Auswahl behoben
 #define T_SET "default.taho"
 #define T_NA "tna.png"
 
-QString OsmUrl="https://dimitrijunker.lima-city.de/OSM/";   //DYJ Taho 4.05a
+static QString OsmUrl="https://dimitrijunker.lima-city.de/OSM/";
 
 TahoMainW::TahoMainW(QWidget *parent) :
     QMainWindow(parent),
@@ -112,9 +112,6 @@ TahoMainW::TahoMainW(QWidget *parent) :
     bool execDone=false;
 
 // default.taho laden
-//DYJ Taho 4.07j 	    m_opt.setDefPathIsPrg(false);	//in Eigene Dateien	//CHG: TAHO 2.10f DYJ
-//DYJ Taho 4.07j 	    m_opt.setRelPath(false);	//Absolute Pfade
-    m_opt.m_uaID=0;	/*DYJ Taho 3.06c */
     OnSelchangeSourceP();
 
     if(m_opt.m_par.isEmpty())
@@ -160,7 +157,7 @@ enum MAPTYPES {MAP_PNG,MAP_JPG,MAP_PNG_TILE};
 /////////////////////////////////////////////////////////////////////////////
 // TahoMainW Dialogfeld
 
-int SizeP[]={SIZE_FREE,SIZE_NONE,256,512,1024,2048,4096,8192,16384,-1};
+static int SizeP[]={SIZE_FREE,SIZE_NONE,256,512,1024,2048,4096,8192,16384,-1};
 
 /*
 void TahoMainW::DoDataExchange(CDataExchange* pDX)
@@ -241,22 +238,12 @@ void TahoMainW::DoDataExchange(CDataExchange* pDX)
 
 void TahoMainW::OnDoTaho()
 {
-//2doUA    UrlMkSetSessionOption(URLMON_OPTION_USERAGENT,(void *)LPCTSTR(m_opt.m_useragent[m_opt.m_uaID]),m_opt.m_useragent[m_opt.m_uaID].GetLength(),0);	/*DYJ Taho 3.06c */
+//2doUA    UrlMkSetSessionOption(URLMON_OPTION_USERAGENT,(void *)LPCTSTR(m_opt.m_useragent[m_opt.m_uaID]),m_opt.m_useragent[m_opt.m_uaID].GetLength(),0);
     if(ui->tw_mapType->currentIndex())
         makeVmap();
     else
         makePmap();
 }
-
-/*DYJ Taho 3.10a Start*/
-/*DYJ  Ende; alt:
-
-void TahoMainW::OnUrl2coord()
-{
-...
-
-}
-*/
 
 void TahoMainW::OnZ0()
 {
@@ -326,22 +313,13 @@ void TahoMainW::saveTaho(QString &path)
         oTaho << "\t<options>\n";
         //:put here the abreviation of the new Language (for ex. en for english, fr for frensh, es for spanish,...
         oTaho << "\t\t<language>" << tr("de") <<"</language>\n";
-
-//DYJ Taho 4.07j         oTaho << "\t\t<defPath>"<< m_opt.getDefPathIsPrg() << "</defPath>\n";
-//DYJ Taho 4.07j 	        oTaho << "\t\t<relPath>" << m_opt.getRelPath() << "</relPath>\n";
-        oTaho << "\t\t<UserAgentID>" << m_opt.m_uaID << "</UserAgentID>\n";
-
-//DYJ Taho 4.07j 	        if(m_opt.getRelPath())	//CHG: TAHO 2.10f DYJ
-//DYJ Taho 4.07j 	            oTaho << "\t\t<zip>" << CPath::relPath(m_opt.getZipPath(),path) << "</zip>\n";
-//DYJ Taho 4.07j 	        else
         oTaho << "\t\t<zip>" << m_opt.getZipPath() << "</zip>\n";
         oTaho << "\t\t<zippar>" << m_opt.getZipPar() << "</zippar>\n";
         oTaho << "\t\t<ungzpar>" << m_opt.getUnGzPar() << "</ungzpar>\n";
         oTaho << "\t\t<maxThreads>" << m_opt.m_tasks << "</maxThreads>\n";
 
-        oTaho << "\t\t<OsmUrl>" << OsmUrl << "</OsmUrl>\n";	//DYJ Taho 4.05a
+        oTaho << "\t\t<OsmUrl>" << OsmUrl << "</OsmUrl>\n";
         oTaho << "\t</options>\n";
-
 
         oTaho << "\t<params>\n";
 
@@ -364,15 +342,13 @@ void TahoMainW::saveTaho(QString &path)
             for(int i=0;i<ANZ_KAL;i++)
                 oTaho << "\t\t<" << ui->lw_kal->item(i)->text() << ">" << ui->lw_kal->item(i)->checkState()/2 << "</" <<ui->lw_kal->item(i)->text() <<">\n";
             for(int zooml=1;zooml<19;zooml++)
-                oTaho << "\t\t<zooml" << zooml << ">" << (int)loadZoomL(zooml)<< "</zooml" << zooml <<">\n";
+                oTaho << "\t\t<zooml" << zooml << ">" << static_cast<int>(loadZoomL(zooml))<< "</zooml" << zooml <<">\n";
             CMapSrc::writeTahoSelected(oTaho,MAP_BAS);
             CMapSrc::writeTahoSelected(oTaho,MAP_OVR);
         }
 
         if(ui->cb_auto->isChecked())
             oTaho << "\t\t<out></out>\n";
-//DYJ Taho 4.07j 	        else if(m_opt.getRelPath())	//CHG: TAHO 2.10f DYJ
-//DYJ Taho 4.07j 	            oTaho << "\t\t<out>" << CPath::relPath(ui->le_out->text(),path) << "</out>\n";
         else
             oTaho << "\t\t<out>" << ui->le_out->text() << "</out>\n";
 
@@ -427,7 +403,6 @@ bool TahoMainW::loadTaho(QString pfad)
         if(!CXmlFile::readValB(sOpt,sTaho,"options"))	//Taho Vers. <2.10
         {
             sOpt=sTaho;
-//DYJ Taho 4.07j 	            m_opt.setRelPath(false);
             if(CXmlFile::readValB(tmp,sOpt,"zip") && !tmp.isEmpty())
                 m_opt.setZipPath(tmp);
             if(CXmlFile::readValB(tmp,sTaho,"zippar")&& !tmp.isEmpty())
@@ -435,25 +410,17 @@ bool TahoMainW::loadTaho(QString pfad)
         }
         else
         {
-//DYJ Taho 4.07j             m_opt.setDefPathIsPrg((CXmlFile::readVal_intDef(sOpt,"defPath",0))!=0);
-//DYJ Taho 4.07j 	            m_opt.setRelPath(CXmlFile::readVal_intDef(sOpt,"relPath",0));
-            m_opt.m_uaID=CXmlFile::readVal_intDef(sOpt,"UserAgentID",0);
             CXmlFile::readValB(tmp,sOpt,"zip");
-//DYJ Taho 4.07j 	            if(m_opt.getRelPath())
-//DYJ Taho 4.07j 	                m_opt.setZipPath(CPath::absPath(tmp,pfad));
-//DYJ Taho 4.07j 	           else
             m_opt.setZipPath(tmp);
             CXmlFile::readValB(tmp,sTaho,"zippar");
             m_opt.setZipPar(tmp);
             CXmlFile::readValB(tmp,sTaho,"ungzpar");
             m_opt.setUnGzPar(tmp);
-            //DYJ Taho 4.05a Start
             if(CXmlFile::readValB(tmp,sOpt,"OsmUrl") && !tmp.isEmpty())
                 OsmUrl=tmp;
-            //DYJ  Ende;
 
         }
-        m_opt.m_tasks=qMax(1,CXmlFile::readVal_intDef(sOpt,"maxThreads",QThread::idealThreadCount()));
+        m_opt.m_tasks=static_cast<int>(qMax(1,CXmlFile::readVal_intDef(sOpt,"maxThreads",QThread::idealThreadCount())));
 
         QString lang="";
         if(CXmlFile::readValB(lang,sOpt,"language"))
@@ -569,16 +536,6 @@ bool TahoMainW::loadTaho(QString pfad)
                 ui->tw_mapType->setCurrentIndex(0);
 //Source
                 CXmlFile::readValB(source,sParams,"sourceName");
-                /*DYJ Taho 4.07d Start*/
-                /*DYJ  Ende; alt:
-                if(source.isEmpty())	//alte Version mit Nummer statt Name
-                {
-                    int src=CXmlFile::readVal_intDef(sParams,"source");
-                    if(src>-1 && src<6)
-                        source=SrcName[src];
-
-                }
-                */
                 CMapSrc::select(source);
             }
 //Koordinaten
@@ -613,14 +570,8 @@ bool TahoMainW::loadTaho(QString pfad)
             if(isAuto)
             {
                 QFileInfo fi(m_opt.m_prgPath,source);
-                /*DYJ Taho 4.07b Start*/
                 out=fi.path();
-                /*DYJ  Ende; alt:
-                out=fi.path()+"/";
-                */
             }
-//DYJ Taho 4.07j 	            else if(m_opt.getRelPath())//relativer Pfad
-//DYJ Taho 4.07j 	                out=CPath::absPath(out,pfad);
             ui->le_out->setText(out);
 
 
@@ -630,13 +581,8 @@ bool TahoMainW::loadTaho(QString pfad)
             ui->rb_nbDir->setChecked(nameBy==NB_DIR);
             m_opt.setCache(CXmlFile::readVal_intDef(sParams,"cacheDays",7));
 
-            /*DYJ Taho 4.05a Start*/
             QString url=OsmUrl+"bbox-tool/bbox.html";
             QDesktopServices::openUrl(QUrl(url) );
-            /*DYJ  Ende; alt:
-            QDesktopServices::openUrl(QUrl("http://www.oche.de/~junker/OSM/bbox-tool/bbox.html") );
-            */
-
 
             ret=true;
         }
@@ -657,7 +603,7 @@ void TahoMainW::on_actionOSMBugs_holen_triggered()
         url.sprintf("http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=%f&t=%f&l=%f&r=%f&limit=100000&open=yes",gr.m_s,gr.m_n,gr.m_w,gr.m_e);
         if(ziel.isNull())
             return;
-        if(QMessageBox::question(NULL, tr("Bugs kürzen"), tr("Sollen die Namen gekürzt und separat gespeichert werden?"),
+        if(QMessageBox::question(nullptr, tr("Bugs kürzen"), tr("Sollen die Namen gekürzt und separat gespeichert werden?"),
                                       QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
         {
             zielTxt= QFileDialog::getSaveFileName(this,tr("OSM Bugs Textfile"),"",tr("Text-File(*.txt)"));
@@ -668,7 +614,7 @@ void TahoMainW::on_actionOSMBugs_holen_triggered()
         bool conv2asc=fi.suffix().compare("asc",Qt::CaseInsensitive)==0;
         if(conv2asc ||!zielTxt.isEmpty())
         {
-            QString tmpF=tmpnam( NULL );
+            QString tmpF=tmpnam( nullptr );
             if(urlDownload::downloadFile(url, tmpF)==0)
                 COsm::convGpxAscShrt(zielTxt,ziel,tmpF,conv2asc,"OpenStreetBugs & Taho");
             remove(tmpF.toStdString().c_str());
@@ -768,7 +714,7 @@ bool TahoMainW::addMaps2ListV(QList<MAKEMAPSV *> &mmList,SDLM_DATA *data,CGeoRec
 {
     if(map->m_offset==-1)
     {
-        if(map->m_kSize && ((gr.m_e-gr.m_w)*(gr.m_n-gr.m_s))>map->m_kSize)
+        if(map->m_kSize>0 && ((gr.m_e-gr.m_w)*(gr.m_n-gr.m_s))>map->m_kSize)
         {
             CGeoRect gr2=gr;
             if((gr.m_e-gr.m_w)>(gr.m_n-gr.m_s))
@@ -818,11 +764,7 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
     SDLM_DATA *data=new SDLM_DATA;
     data->errs=0;
     data->m_outBas=ui->le_out->text();
-    /*DYJ Taho 4.07b Start*/
     if(!data->m_outBas.isEmpty() && !data->m_outBas.endsWith("/") &&! data->m_outBas.endsWith("\\"))
-    /*DYJ  Ende; alt:
-    if(!data->m_outBas.isEmpty() && data->m_outBas.endsWith("/") && data->m_outBas.endsWith("\\"))
-    */
         data->m_outBas+="/";
     if(sizeP!=SIZE_VECTOR && sizeP!=SIZE_NONE )	//bei Tiles auch keine Kal-Files
     {
@@ -837,10 +779,10 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
     QDir dirH;
     if(!dirH.mkpath(out))
     {
-        QMessageBox::warning(NULL, tr("Ausgabeverzeichnis"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
+        QMessageBox::warning(nullptr, tr("Ausgabeverzeichnis"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
                                       QMessageBox::Ok);
         delete data;
-        return NULL;
+        return nullptr;
     }
     data->m_sizeP=sizeP;
     data->m_nameBy=nameBy();
@@ -866,6 +808,15 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
 bool TahoMainW::loadZoomL(int zl)
 {
     QListWidgetItem *lwi=ui->lw_zoom->item(zl-1);
+
+    if (lwi == nullptr)
+    {
+        QMessageBox::warning(
+                    this, tr("Warnung"),
+                    tr("Zoom %1 kommt wahrscheinlich aus Konfigurationsdatei, darf aber nicht benutzt werden."));
+        return false;
+    }
+
     if((lwi->flags()&Qt::ItemIsEnabled)==0)
         return false;
     else
@@ -876,7 +827,7 @@ bool TahoMainW::loadZoomL(int zl)
 void TahoMainW::OnSelchangeSizec(int size)
 {
     int breite=512;
-    for(int i=1;i<19;i++)
+    for(int i=1;i<ui->lw_zoom->count();i++)
     {
         QListWidgetItem *lwi=ui->lw_zoom->item(i-1);
         if(breite>=SizeP[size])
@@ -908,7 +859,7 @@ void TahoMainW::on_actionKMZ_erstellen_triggered()
 {
     if(m_opt.getZipPath().isEmpty()||m_opt.getZipPar().isEmpty())
     {
-        QMessageBox::warning(NULL, tr("Packer"), tr("Es ist kein Packer eingestellt. Bitte tragen Sie einen im folgenden Dialog ein."),
+        QMessageBox::warning(nullptr, tr("Packer"), tr("Es ist kein Packer eingestellt. Bitte tragen Sie einen im folgenden Dialog ein."),
                                       QMessageBox::Ok);
         on_actionOptionen_triggered();
     }
@@ -921,12 +872,9 @@ void TahoMainW::on_actionKMZ_erstellen_triggered()
 void TahoMainW::on_actionOptionen_triggered()
 
 {
-//DYJ Taho 4.07d 	    m_opt.m_reloadSrc=false;
 //2do    m_opt.init();
 
     m_opt.exec();
-//DYJ Taho 4.07d 	    if(m_opt.m_reloadSrc)
-//DYJ Taho 4.07d        loadTaho(m_opt.m_prgPath+T_SRC);
 
 }
 
@@ -954,10 +902,10 @@ void loadVMapInThread( MAKEMAPSV * aktMap )
 }
 void loadPMapInThread( MAKEMAPSP *aktMap)
 {
-    CMapSrc *mapSrc=(CMapSrc *)aktMap->m_sdlm->m_maps[0];
+    CMapSrc *mapSrc=static_cast<CMapSrc *>(aktMap->m_sdlm->m_maps[0]);
     QString outPath=aktMap->m_sdlm->m_outBas+"map/";
 
-    CPixmap pixm(aktMap->zoom,aktMap->m_sdlm->m_sizeP,(int)aktMap->xloopd,(int)aktMap->yloop,aktMap->m_sdlm->m_nameBy,aktMap->m_sdlm->m_maxCacheDays,outPath,aktMap->m_sdlm->m_bpp,aktMap->m_sdlm->m_pictType,aktMap->xsize,aktMap->ysize,mapSrc->m_pref);
+    CPixmap pixm(aktMap->zoom,aktMap->m_sdlm->m_sizeP,static_cast<int>(aktMap->xloopd),static_cast<int>(aktMap->yloop),aktMap->m_sdlm->m_nameBy,aktMap->m_sdlm->m_maxCacheDays,outPath,aktMap->m_sdlm->m_bpp,aktMap->m_sdlm->m_pictType,aktMap->xsize,aktMap->ysize,mapSrc->m_pref);
     qDebug() << pixm.m_filename;
 
     QProgressDialog *progD=aktMap->m_sdlm->m_progD;
@@ -972,7 +920,7 @@ void loadPMapInThread( MAKEMAPSP *aktMap)
         for(int ov=0;ov<aktMap->m_sdlm->m_maps.size();ov++)
            pixm.LoadTile(aktMap->m_sdlm,ov);
         delete aktMap;
-        aktMap=NULL;
+        aktMap=nullptr;
 }
     if(progD)
         progD->setValue(progD->value()+1);
@@ -983,14 +931,14 @@ void TahoMainW::makePmap()
     int minzoom=ui->cb_size->currentIndex()-2;
     if(!gr.isValid())
     {
-        QMessageBox::warning(NULL, tr("Karte erstellen"), tr("Bereich ungültig"),
+        QMessageBox::warning(nullptr, tr("Karte erstellen"), tr("Bereich ungültig"),
                                       QMessageBox::Ok);
         return;
     }
     CMapSrc *map;
-    if((map=CMapSrc::lookup(CMapSrc::getSrc()))==NULL)
+    if((map=CMapSrc::lookup(CMapSrc::getSrc()))==nullptr)
     {
-        QMessageBox::warning(NULL, tr("Karte erstellen"), tr("Quelle ungültig"),
+        QMessageBox::warning(nullptr, tr("Karte erstellen"), tr("Quelle ungültig"),
                              QMessageBox::Ok);
         return;
     }
@@ -1001,7 +949,7 @@ void TahoMainW::makePmap()
     SDLM_DATA *data=initData(SizeP[ui->cb_size->currentIndex()]);
     //psi->name="tah"
     data->m_maps.insert(0,map);
-    int maxThreads=qMin((int)m_opt.m_tasks,map->m_maxThreads);
+    int maxThreads=qMin(static_cast<int>(m_opt.m_tasks),map->m_maxThreads);
 
     QMap<QString,CMapSrc *>::iterator pos=CMapSrc::m_mapSrc.begin();
     QList<MAKEMAPSP *> mmList;
@@ -1018,7 +966,7 @@ void TahoMainW::makePmap()
             QDir dirH;
             if(!dirH.mkpath(dir))
             {
-                QMessageBox::warning(NULL, tr("Karte erstellen"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
+                QMessageBox::warning(nullptr, tr("Karte erstellen"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
                                      QMessageBox::Ok);
                 return;
             }
@@ -1033,15 +981,10 @@ void TahoMainW::makePmap()
     QFileInfo fi(data->m_tna);
 
     if(!fi.exists())	// prüfen ob das File bereits besteht
-    /*DYJ Taho 4.05a Start*/
     {
         QString url=OsmUrl+"taho/tna.png";
         urlDownload::downloadFile(url, data->m_tna);
     }
-    /*DYJ  Ende; alt:
-        urlDownload::downloadFile("http://www.oche.de/~junker/OSM/taho/tna.png", data->m_tna);
-    */
-
 
     if(gr.m_e<gr.m_w)	// über 180Grad
     {
@@ -1066,15 +1009,14 @@ void TahoMainW::makePmap()
         }
     }
     data->m_bpp=ui->cb_bpp->currentIndex();
-//DYJ Taho 4.07k     bool inThread=false;
     if(!mmList.isEmpty())
     {
          int anzahlKarten=mmList.size();
          data->m_done=0;
-         QProgressDialog progress("", tr("Abbruch"), 0, anzahlKarten, NULL);
+         QProgressDialog progress("", tr("Abbruch"), 0, anzahlKarten, nullptr);
          progress.setWindowModality(Qt::WindowModal);
          progress.setValue(0);
-         progress.setWindowTitle(tr("Lade %n Karten",0,anzahlKarten));
+         progress.setWindowTitle(tr("Lade %n Karten",nullptr,anzahlKarten));
 
 #ifdef QT_DEBUG
          qDebug() << "Kein Multitasking";
@@ -1083,8 +1025,7 @@ void TahoMainW::makePmap()
              loadPMapInThread(mmList[kNr]);	// kein Multitasking zum Debugging
 #else
 
-//DYJ Taho 4.07k         inThread=true;
-        data->m_progD=NULL;
+        data->m_progD=nullptr;
         qDebug() << "Multitasking mit " << maxThreads << " Threads";
         QThreadPool::globalInstance()->setMaxThreadCount(maxThreads);
         QFutureWatcher<void> fW;
@@ -1098,27 +1039,31 @@ void TahoMainW::makePmap()
         fW.waitForFinished();
 #endif
     }
-//DYJ Taho 4.07k     if(!inThread)
     {
 
         QMessageBox msgBox(QMessageBox::Warning,"Pixel-Tile","",QMessageBox::Ok|QMessageBox::Yes);
         msgBox.button(QMessageBox::Yes)->setText(tr("Log anzeigen"));
 
         if((data->errs&ERR_PIXM_CREATE)==ERR_PIXM_CREATE)
-            msgBox.setText( QObject::tr("Karte konnte nicht erzeugt werden, evtl. zu groß!"));
+        {
+            auto text = tr("Karte konnte nicht erzeugt werden, evtl. zu groß!");
+            if (sizeof(quintptr) == 4) // 32b build
+            {
+                text += tr("\n\nIhr Programm ist 32bit, versuchen Sie 64bit Version.");
+            }
+            msgBox.setText( text );
+        }
         else if((data->errs&ERR_PIXM_TILE)==ERR_PIXM_TILE)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile"));
         else if((data->errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
-//DYJ Taho 4.07f         else if((data->errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
         else if(mmList.isEmpty())
         {
-            msgBox.setText( QObject::tr("Nichts zu tuen, evtl kein Zoomlevel ausgewählt?"));
+            msgBox.setText( tr("Nichts zu tun, evtl kein Zoomlevel ausgewählt?"));
             data->errs=1024;
         }
         else if(data->errs>0)
-            msgBox.setText( QObject::tr("Unbekannter Fehler. S. Logfile"));
+            msgBox.setText( tr("Unbekannter Fehler. S. Logfile"));
 
 
         while(!data->m_errTxts.isEmpty())
@@ -1147,7 +1092,7 @@ void TahoMainW::makeVmap()
 {
     if(m_opt.getZipPath().isEmpty()||m_opt.getUnGzPar().isEmpty())
     {
-        QMessageBox::warning(NULL, tr("Packer"), tr("Es ist kein Packer eingestellt. Bitte tragen Sie einen im folgenden Dialog ein."),
+        QMessageBox::warning(nullptr, tr("Packer"), tr("Es ist kein Packer eingestellt. Bitte tragen Sie einen im folgenden Dialog ein."),
                                       QMessageBox::Ok);
         on_actionOptionen_triggered();
     }
@@ -1157,7 +1102,7 @@ void TahoMainW::makeVmap()
     CGeoRect gr(ui->le_lat1->text().toDouble(),ui->le_lat2->text().toDouble(),ui->le_lon1->text().toDouble(),ui->le_lon2->text().toDouble(),85.0511);
     if(!gr.isValid())
     {
-        QMessageBox::warning(NULL, tr("Karte erstellen"), tr("Bereich ungültig"),
+        QMessageBox::warning(nullptr, tr("Karte erstellen"), tr("Bereich ungültig"),
                                       QMessageBox::Ok);
         return;
     }
@@ -1182,7 +1127,7 @@ void TahoMainW::makeVmap()
                 QDir dirH;
                 if(!dirH.mkpath(dir))
                 {
-                    QMessageBox::warning(NULL, tr("Karte erstellen"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
+                    QMessageBox::warning(nullptr, tr("Karte erstellen"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
                                                   QMessageBox::Ok);
                     return;
                 }
@@ -1206,10 +1151,10 @@ void TahoMainW::makeVmap()
     {
         int anzahlKarten=mmList.size();
         data->m_done=0;
-        QProgressDialog progress("", tr("Abbruch"), 0, anzahlKarten*3, NULL);
+        QProgressDialog progress("", tr("Abbruch"), 0, anzahlKarten*3, nullptr);
         progress.setWindowModality(Qt::WindowModal);
         progress.setValue(0);
-        progress.setWindowTitle(tr("Lade %n Vektor-Karten",0,anzahlKarten));
+        progress.setWindowTitle(tr("Lade %n Vektor-Karten",nullptr,anzahlKarten));
 
 #ifdef QT_DEBUG
         qDebug() << "Kein Multitasking";
@@ -1218,7 +1163,7 @@ void TahoMainW::makeVmap()
             loadVMapInThread(mmList[kNr]);	// kein Multitasking zum Debugging
 #else
         inThread=true;
-        data->m_progD=NULL;
+        data->m_progD=nullptr;
         qDebug() << "Multitasking mit " << maxThreads << " Threads";
         QThreadPool::globalInstance()->setMaxThreadCount(maxThreads);
         QFutureWatcher<void> fW;
@@ -1238,18 +1183,16 @@ void TahoMainW::makeVmap()
         msgBox.button(QMessageBox::Yes)->setText(tr("Log anzeigen"));
 
         if((data->errs&ERR_PIXM_TILE)==ERR_PIXM_TILE)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile"));
         else if((data->errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
-            msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
-//DYJ Taho 4.07f         else if((data->errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-//DYJ Taho 4.07f             msgBox.setText( QObject::tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde das Standard Tile verwendet. S. Logfile"));
+            msgBox.setText( tr("Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile"));
         else if(mmList.isEmpty())
         {
-            msgBox.setText( QObject::tr("Nichts zu tuen"));
+            msgBox.setText( tr("Nichts zu tun"));
             data->errs=1024;
         }
         else if(data->errs>0)
-            msgBox.setText( QObject::tr("Unbekannter Fehler. S. Logfile"));
+            msgBox.setText( tr("Unbekannter Fehler. S. Logfile"));
 
 
 
@@ -1278,14 +1221,12 @@ void TahoMainW::makeVmap()
 void TahoMainW::OnSelchangeSourceP()
 {
     CMapSrc *map;
-    if((map=CMapSrc::lookup(CMapSrc::getSrc()))!=NULL)
+    if((map=CMapSrc::lookup(CMapSrc::getSrc()))!=nullptr)
     {
-        //DYJ Taho 4.07c Start
         static QString oldName="";
         if(map->hatUnbekannteID())
             CMapSrc::select(oldName);
         oldName=CMapSrc::getSrc();
-        //DYJ  Ende;
         if(map->m_url.startsWith("file:///",Qt::CaseInsensitive))
         {
             QString path=map->m_url.mid(8);
@@ -1307,14 +1248,8 @@ void TahoMainW::OnSelchangeSourceP()
     if(ui->cb_auto->isChecked())
     {
         QString name=CMapSrc::getSrc();
-        /*DYJ Taho 4.07a Start*/
         QFileInfo fi(m_opt.m_persPath,name);
         ui->le_out->setText(fi.filePath());
-        /*DYJ  Ende; alt:
-        QFileInfo fi(m_opt.m_prgPath,name);
-        ui->le_out->setText(fi.filePath()+"/");
-        */
-
     }
 
 }
@@ -1382,14 +1317,10 @@ void TahoMainW::OnBnClickedBbox()
 
 {
 
-    /*DYJ Taho 4.05a Start*/
     QString url=OsmUrl+"bbox-tool/bbox.html";
     QDesktopServices::openUrl(QUrl(url) );
-    /*DYJ  Ende; alt:
-    QDesktopServices::openUrl(QUrl("http://www.oche.de/~junker/OSM/bbox-tool/bbox.html") );
-    */
 
-    if(QMessageBox::question(NULL, tr("BBox-Tool"), tr("Wähle Bereich in Browser-Fenster und kopiere das <bbox...> unten links in die Zwischenablage, dann klicke den Knopf 'OK'"),
+    if(QMessageBox::question(nullptr, tr("BBox-Tool"), tr("Wähle Bereich in Browser-Fenster und kopiere das <bbox...> unten links in die Zwischenablage, dann klicke den Knopf 'OK'"),
                                   QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
     {
         int pos1;
@@ -1470,9 +1401,7 @@ Q_DECLARE_METATYPE(CMapSrc*)
 void TahoMainW::OnMapChanged(QListWidgetItem* item)
 {
     CMapSrc *ms=item->data(Qt::UserRole).value<CMapSrc *>();
-    //DYJ Taho 4.07c Start
     if(item->checkState()==Qt::Checked && ms->hatUnbekannteID())
         item->setCheckState(Qt::Unchecked);
- //DYJ  Ende;
     ms->m_useOvrs[0]=item->checkState()==Qt::Checked;
 }
