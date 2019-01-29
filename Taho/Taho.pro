@@ -19,12 +19,14 @@ SOURCES += main.cpp\
         tahomainw.cpp \
     ctahoopt.cpp \
     cdokmz.cpp \
-    ctahocopy.cpp
+    ctahocopy.cpp \
+    tahostyle.cpp
 
 HEADERS  += tahomainw.h \
     ctahoopt.h \
     cdokmz.h \
-    ctahocopy.h
+    ctahocopy.h \
+    tahostyle.h
 
 FORMS    += tahomainw.ui \
     ctahoopt.ui \
