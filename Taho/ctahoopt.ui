@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>513</width>
-    <height>298</height>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -143,9 +143,12 @@
         <item row="0" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLabel" name="la_zip">
+           <widget class="QLineEdit" name="le_zip">
             <property name="text">
-             <string notr="true">TextLabel</string>
+             <string notr="true"/>
+            </property>
+            <property name="placeholderText">
+             <string>Pfad zu einer Zipper-exe-datei</string>
             </property>
            </widget>
           </item>

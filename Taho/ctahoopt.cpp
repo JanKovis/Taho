@@ -14,6 +14,7 @@ Nötige Änderungen zur Anpassung an Visual Studio 2013
 */
 #include "ctahoopt.h"
 #include "ui_ctahoopt.h"
+
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QThread>
@@ -24,14 +25,12 @@ CTahoOpt::CTahoOpt(QWidget *parent) :
 {
     ui->setupUi(this);
     m_tasks = abs(QThread::idealThreadCount());
-
 }
 
 CTahoOpt::~CTahoOpt()
 {
     delete ui;
 }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Dialogfeld CTahoOpt
@@ -74,15 +73,15 @@ bool CTahoOpt::OnInitDialog()
 */
 void CTahoOpt::OnZip()
 {
-    QFileInfo fi(getZipPath());
-    QString path_neu= QFileDialog::getOpenFileName(this,tr("Packer"),getZipPath(),tr("Programm(*.exe);;Alle(*.*)")); //2dowindows
+    QString path_neu= QFileDialog::getOpenFileName(this,tr("Packer"),getZipPath(),
+                                                   tr("Programm (*.exe);;Alle (*.*)")); //2dowindows
     if(path_neu.isEmpty())
         return;
+
     setZipPath(path_neu);
 
-
     QFileInfo fiZip(getZipPath());
-    QString prgName=fiZip.baseName().toLower();
+    const auto prgName=fiZip.baseName().toLower();
 
     if(prgName.contains("7z"))
     {
@@ -99,9 +98,8 @@ void CTahoOpt::OnZip()
         setZipPar("-min -a $Z @$L");
         setUnGzPar("-min -e $Q $Z");
     }
-
-
 }
+
 void	CTahoOpt::setCache(int tage)
 {
     ui->sbCache->setValue(tage);
@@ -111,15 +109,17 @@ int CTahoOpt::getCache()
 {
     return ui->sbCache->value();
 }
+
 QString	CTahoOpt::getZipPath()
 {
-    return ui->la_zip->text();
+    return ui->le_zip->text();
 }
 
 void CTahoOpt::setZipPath(QString path)
 {
-    ui->la_zip->setText(path);
+    ui->le_zip->setText(QDir::toNativeSeparators(path));
 }
+
 QString	CTahoOpt::getZipPar()
 {
     return ui->le_parKMZ->text();
@@ -139,14 +139,11 @@ void CTahoOpt::setUnGzPar(QString par)
 {
     ui->le_parGZ->setText(par);
 }
+
 void CTahoOpt::changeEvent(QEvent *e)
 {
-    switch (e->type())
+    if (e->type() == QEvent::LanguageChange)
     {
-    case QEvent::LanguageChange:
         ui->retranslateUi(this);
-        break;
-    default:
-        break;
     }
 }
