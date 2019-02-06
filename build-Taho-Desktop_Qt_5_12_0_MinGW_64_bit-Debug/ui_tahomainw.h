@@ -132,8 +132,8 @@ public:
     {
         if (TahoMainW->objectName().isEmpty())
             TahoMainW->setObjectName(QString::fromUtf8("TahoMainW"));
-        TahoMainW->resize(761, 511);
-        TahoMainW->setWindowTitle(QString::fromUtf8("Taho 4.07"));
+        TahoMainW->resize(761, 525);
+        TahoMainW->setWindowTitle(QString::fromUtf8("Taho 4.08"));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/images/taho.png"), QSize(), QIcon::Normal, QIcon::Off);
         TahoMainW->setWindowIcon(icon);
@@ -592,6 +592,7 @@ public:
         cb_size = new QComboBox(tab);
         cb_size->addItem(QString());
         cb_size->addItem(QString());
+        cb_size->addItem(QString());
         cb_size->addItem(QString::fromUtf8("256*256"));
         cb_size->addItem(QString::fromUtf8("512*512"));
         cb_size->addItem(QString::fromUtf8("1024*1024"));
@@ -673,7 +674,7 @@ public:
         TahoMainW->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TahoMainW);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 761, 17));
+        menuBar->setGeometry(QRect(0, 0, 761, 21));
         menuDatei = new QMenu(menuBar);
         menuDatei->setObjectName(QString::fromUtf8("menuDatei"));
         menuBearbeiten = new QMenu(menuBar);
@@ -773,6 +774,7 @@ public:
         label_15->setText(QApplication::translate("TahoMainW", "Gr\303\266\303\237e:", nullptr));
         cb_size->setItemText(0, QApplication::translate("TahoMainW", "frei (ganzer Bereich in 1 File)", nullptr));
         cb_size->setItemText(1, QApplication::translate("TahoMainW", "keine (nur Kacheln 256*256)", nullptr));
+        cb_size->setItemText(2, QApplication::translate("TahoMainW", "QTOffline", nullptr));
 
         groupBox_4->setTitle(QApplication::translate("TahoMainW", "Filetyp", nullptr));
         tw_mapType->setTabText(tw_mapType->indexOf(tab), QApplication::translate("TahoMainW", "Pixelkarten", nullptr));

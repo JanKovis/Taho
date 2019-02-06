@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>761</width>
-    <height>511</height>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Taho 4.07</string>
+   <string notr="true">Taho 4.08</string>
   </property>
   <property name="windowIcon">
    <iconset resource="taho.qrc">
@@ -691,6 +691,11 @@
             </item>
             <item>
              <property name="text">
+              <string>QTOffline</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string notr="true">256*256</string>
              </property>
             </item>
@@ -842,7 +847,7 @@
      <x>0</x>
      <y>0</y>
      <width>761</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatei">

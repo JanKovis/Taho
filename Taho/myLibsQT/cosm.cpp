@@ -77,10 +77,19 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,QStri
         x-=anzTilesInZoom;
     if(y<0||y>=anzTilesInZoom)
         return 3;
-    path2=QString("%1%2/%3").arg(m_tahCache).arg(m_zoom).arg(x);
-    file=QString("%1/%2%3%4").arg(path2).arg(y).arg(m_tileExt).arg(addExt);
-    QDir dirH;
-    dirH.mkpath(path2);
+    if(m_tahCache.endsWith('-'))    //QT5 offlinemaps
+    {
+        QFileInfo fi(m_tahCache);
+        path2=fi.path();
+        file=QString("%1%2-%3-%4%5").arg(m_tahCache).arg(m_zoom).arg(x).arg(y).arg(m_tileExt);
+    }
+    else
+    {
+        path2=QString("%1%2/%3").arg(m_tahCache).arg(m_zoom).arg(x);
+        file=QString("%1/%2%3%4").arg(path2).arg(y).arg(m_tileExt).arg(addExt);
+        QDir dirH;
+        dirH.mkpath(path2);
+    }
     if(pErrTxt)
         *pErrTxt="";
     QFileInfo fii(file);

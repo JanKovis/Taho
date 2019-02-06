@@ -91,7 +91,7 @@ void CDoKmz::OnFsKmz()
     }
     else
         cPath=m_out;
-    QString path= QFileDialog::getSaveFileName(NULL,tr("Speicher KMZ Files"),cPath.makePath(PATH_PATH),tr("KMZ-Files(*.kmz)"));
+    QString path= QFileDialog::getSaveFileName(nullptr,tr("Speicher KMZ Files"),cPath.makePath(PATH_PATH),tr("KMZ-Files(*.kmz)"));
     if(path.isEmpty())
        return;
 
@@ -111,7 +111,7 @@ void CDoKmz::OnOK()
     if(idx>-1)
         fName0.resize(idx);
     for(zl=0;zl<19;zl++)
-        kmlOut[zl]=NULL;
+        kmlOut[zl]=nullptr;
 //    CListBox* pFB= (CListBox*)GetDlgItem(IDC_LISTKML);
     int anzFiles=ui->lw_kml->count();
     bool ok=true;
@@ -185,7 +185,7 @@ void CDoKmz::OnOK()
                         if(kmlOut[zl]->open(QIODevice::WriteOnly) && listF[zl]->open(QIODevice::WriteOnly))
                         if(!kmlOut[zl] || !listF[zl])
                         {
-                            QMessageBox::warning(NULL, tr("KMZ-Ausgabe"), tr("Kann Ausgabefile nicht erzeugen"),
+                            QMessageBox::warning(nullptr, tr("KMZ-Ausgabe"), tr("Kann Ausgabefile nicht erzeugen"),
                                                           QMessageBox::Ok);
                             while(zl>0)
                             {
@@ -269,7 +269,7 @@ bool CDoKmz::add2kmz(QString kmzPfad, QString listPfad)
     QProcess *mp=new QProcess(this);
     if(!mp->startDetached(cmd))
     {
-        QMessageBox::warning(NULL, tr("KMZ-Ausgabe"), tr("Beim Aufruf des Packers trat ein Fehler auf"),
+        QMessageBox::warning(nullptr, tr("KMZ-Ausgabe"), tr("Beim Aufruf des Packers trat ein Fehler auf"),
                                       QMessageBox::Ok);
         return FALSE;
     }

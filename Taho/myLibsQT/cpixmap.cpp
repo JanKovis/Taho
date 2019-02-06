@@ -3,7 +3,7 @@
 #include <qimage.h>
 #include "cosm.h"
 #include <qpainter.h>
-#include <qtranslator>
+#include <QTranslator>
 #include <cmath>
 #include <QTimer>
 #include <QTextStream>
@@ -25,15 +25,19 @@
  * QImage.copy funktioniert nicht um zu 8 Bit Palette zu wechseln, convertToFormat funktioniert
 */
 
-
-
-CPixmap::CPixmap(int zoom, int sizeP,int xloop,int yloop,int nameBy,unsigned int maxCacheDays,QString pfad,int bpp,QString ext,int sizeX,int sizeY,QString prefix)
+CPixmap::CPixmap(MAKEMAPSP *map, QString pfad,QString prefix)
 {
     QString widthInName,file;
 
-    m_sizeP=sizeP;
+    m_zoom=map->zoom;
+    m_xtile=map->xloop;
+    m_ytile=map->yloop;
+    m_pixExt=map->m_sdlm->m_pictType;
+    m_maxCacheDays=map->m_sdlm->m_maxCacheDays;
+
+    m_sizeP=map->m_sdlm->m_sizeP;
     Q_ASSERT(m_sizeP>SIZE_MIN);	//altes size ?
-    switch(sizeP)
+    switch(m_sizeP)
     {
     case 256:
         m_sizeI=0;
@@ -59,8 +63,8 @@ CPixmap::CPixmap(int zoom, int sizeP,int xloop,int yloop,int nameBy,unsigned int
     }
     if(m_sizeP==SIZE_FREE)
     {
-        m_widthX = tilesize * sizeX;
-        m_widthY = tilesize * sizeY;
+        m_widthX = tilesize * map->xsize;
+        m_widthY = tilesize * map->ysize;
         widthInName=QString("_p%1x%2").arg(m_widthX).arg(m_widthY);
     }
     else
@@ -69,38 +73,41 @@ CPixmap::CPixmap(int zoom, int sizeP,int xloop,int yloop,int nameBy,unsigned int
         widthInName=QString("_p%1").arg(m_sizeP);
     }
     m_pfad=pfad;
-    m_bpp=bpp;
-    if(sizeP==SIZE_NONE)
-        file=QString("%1/%2/%3%4").arg(zoom).arg(xloop).arg(yloop).arg(ext);
-    else if(nameBy==NB_DIR)
-        file=QString("%1/%2/%3").arg(zoom).arg(xloop).arg(yloop);
-    else if(nameBy==NB_COORD)
+    m_bpp=map->m_sdlm->m_bpp;
+    m_mapID=0;
+    if(m_sizeP==SIZE_NONE)
+        file=QString("%1/%2/%3%4").arg(m_zoom).arg(m_xtile).arg(m_ytile).arg(m_pixExt);
+    else if(m_sizeP==SIZE_QT)
+    {
+        m_mapID=map->m_sdlm->m_maps[0]->m_mapID;
+        m_mapDefin=map->m_sdlm->m_maps[0]->m_mapDefin;
+        file=QString("osm_100-%1-%2-%3-%4-%5%6").arg(m_mapDefin).arg(m_mapID).arg(m_zoom).arg(m_xtile).arg(m_ytile).arg(m_pixExt);
+    }
+    else if(map->m_sdlm->m_nameBy==NB_DIR)
+        file=QString("%1/%2/%3").arg(m_zoom).arg(m_xtile).arg(m_ytile);
+    else if(map->m_sdlm->m_nameBy==NB_COORD)
     {
         CGeoRect gr1,gr2;
         if(m_sizeP==SIZE_FREE)
         {
-            Project(xloop,yloop,zoom, gr1);
-            Project(xloop+sizeX-1,yloop+sizeY-1,zoom, gr2);
+            Project(m_xtile,m_ytile,m_zoom, gr1);
+            Project(m_xtile+map->xsize-1,m_ytile+map->ysize-1,m_zoom, gr2);
         }
         else
         {
-            Project(xloop,yloop,zoom-m_sizeI, gr1);
+            Project(m_xtile,m_ytile,m_zoom-m_sizeI, gr1);
             gr2=gr1;
         }
-        file=QString("%1_z%2_lat%3_lon%4%5").arg(prefix).arg(zoom).arg((gr1.m_n+gr2.m_s)/2).arg((gr1.m_w+gr2.m_e)/2).arg(widthInName);
+        file=QString("%1_z%2_lat%3_lon%4%5").arg(prefix).arg(m_zoom).arg((gr1.m_n+gr2.m_s)/2).arg((gr1.m_w+gr2.m_e)/2).arg(widthInName);
         file.replace(".","_");
     }
     else
-        file=QString("%1_z%2_y%3_x%4%5").arg(prefix).arg(zoom).arg(yloop).arg(xloop).arg(widthInName);
+        file=QString("%1_z%2_y%3_x%4%5").arg(prefix).arg(m_zoom).arg(m_ytile).arg(m_xtile).arg(widthInName);
 
     m_filename=file;
-    m_pixExt=ext;
-    m_zoom=zoom;
-    m_xtile=xloop;
-    m_ytile=yloop;
-    m_maxCacheDays=maxCacheDays;
     m_bMap=nullptr;
 }
+
 
 CPixmap::CPixmap(int zoom, int xloop, int yloop, int xsize, int ysize, QString pfad,QImage **bMap, QRect rMap, int bpp)
 {
@@ -135,7 +142,7 @@ void CPixmap::Ini_batch_PWMapConvert(QString filestub)
     if(fileOut.open( QIODevice::WriteOnly)!=0 )
     {
         char txt[]="echo off\n\n";
-        fileOut.write(txt,strlen(txt));
+        fileOut.write(txt,static_cast<long>(strlen(txt)));
         fileOut.close();
     }
 }
@@ -187,7 +194,7 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
         for(int ov=0;ov<data->m_maps.size();ov++)	//CHG: TAHO 2.11a DYJ
         {
             QString tilePath;
-            CMapSrc * map=(CMapSrc *)data->m_maps[ov];
+            CMapSrc * map=static_cast<CMapSrc *>(data->m_maps[ov]);
             tilePath=QString("%1%2/").arg(data->m_outBas).arg(map->m_name);
             COsm osm(m_zoom,map->m_url,map->m_ext,tilePath,m_maxCacheDays);
             for(int x = xtile1; x <= xtile2; x++)	//Karte aus mehreren Tiles zusammensetzen.
@@ -387,7 +394,7 @@ int CPixmap::MakeMapCal(bool *pMakeKal,QString &PWconvBatchname,CGeoRect *pgRect
     CGeoRect gr;
     if(pgRect)
         gr=*pgRect;
-    else if(m_sizeP==SIZE_NONE)
+    else if(m_sizeP==SIZE_NONE || m_sizeP==SIZE_QT)
 
        return ERR_PIXM_KAL;
     else
@@ -804,22 +811,22 @@ int CPixmap::GenCalibrationMap_UI_VIEW(CGeoRect &gr)
         else
             ss="S";
         double wm=fabs(gr.m_w);
-        int wg=(int)wm;
+        int wg=static_cast<int>(wm);
         wm-=wg;
         wm*=60;
 
         double em=fabs(gr.m_e);
-        int eg=(int)em;
+        int eg=static_cast<int>(em);
         em-=eg;
         em*=60;
 
         double nm=fabs(gr.m_n);
-        int ng=(int)nm;
+        int ng=static_cast<int>(nm);
         nm-=ng;
         nm*=60;
 
         double sm=fabs(gr.m_s);
-        int sg=(int)sm;
+        int sg=static_cast<int>(sm);
         sm-=sg;
         sm*=60;
 
@@ -913,12 +920,23 @@ int CPixmap::GenCalibrationMap_GMI(CGeoRect &gr)	//CHG: TAHO 2.10b SG
     return err;
 }
 
-void CPixmap::LoadTile(SDLM_DATA *data,int overlay)
+void CPixmap::LoadTile(SDLM_DATA *data, int overlay)
 {
     QString tilePath;
-    CMapSrc * map=(CMapSrc *)data->m_maps[overlay];
-    QFileInfo fi(data->m_outBas,map->m_name);
-    tilePath=fi.filePath()+"/";
+    CMapSrc * map=static_cast<CMapSrc *>(data->m_maps[overlay]);
+    if(m_mapID)
+    {
+        QString fn=QString("osm_100-%1-%2-").arg(m_mapDefin).arg(m_mapID);
+        QDir dirH;
+        dirH.mkpath(data->m_outBas);
+        QFileInfo fi(data->m_outBas,fn);
+        tilePath=fi.filePath();
+    }
+    else
+    {
+        QFileInfo fi(data->m_outBas,map->m_name);
+        tilePath=fi.filePath()+"/";
+    }
     COsm osm(m_zoom,map->m_url,map->m_ext,tilePath,m_maxCacheDays);
     QString tile1Path,errTxt;
     QString addExt="";

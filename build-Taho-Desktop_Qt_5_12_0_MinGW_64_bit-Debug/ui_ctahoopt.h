@@ -23,13 +23,14 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_CTahoOpt
 {
 public:
-    QHBoxLayout *horizontalLayout_4;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox_4;
     QHBoxLayout *horizontalLayout;
@@ -37,6 +38,11 @@ public:
     QGroupBox *groupBox_7;
     QVBoxLayout *verticalLayout;
     QSpinBox *spinBox;
+    QGroupBox *groupBox;
+    QHBoxLayout *horizontalLayout_6;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *la_offDir;
+    QPushButton *pb_offDir;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *pb_update;
@@ -55,18 +61,23 @@ public:
     QLabel *label_5;
     QLineEdit *le_parGZ;
     QLabel *label_6;
+    QWidget *layoutWidget1;
+    QVBoxLayout *verticalLayout_3;
     QDialogButtonBox *buttonBox;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *CTahoOpt)
     {
         if (CTahoOpt->objectName().isEmpty())
             CTahoOpt->setObjectName(QString::fromUtf8("CTahoOpt"));
-        CTahoOpt->resize(513, 298);
-        horizontalLayout_4 = new QHBoxLayout(CTahoOpt);
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        verticalLayout_2 = new QVBoxLayout();
+        CTahoOpt->resize(573, 396);
+        layoutWidget = new QWidget(CTahoOpt);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(9, 9, 461, 375));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        groupBox_4 = new QGroupBox(CTahoOpt);
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        groupBox_4 = new QGroupBox(layoutWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         groupBox_4->setMaximumSize(QSize(200, 16777215));
         horizontalLayout = new QHBoxLayout(groupBox_4);
@@ -82,7 +93,7 @@ public:
 
         verticalLayout_2->addWidget(groupBox_4);
 
-        groupBox_7 = new QGroupBox(CTahoOpt);
+        groupBox_7 = new QGroupBox(layoutWidget);
         groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
         groupBox_7->setMaximumSize(QSize(200, 16777215));
         verticalLayout = new QVBoxLayout(groupBox_7);
@@ -96,7 +107,30 @@ public:
 
         verticalLayout_2->addWidget(groupBox_7);
 
-        groupBox_2 = new QGroupBox(CTahoOpt);
+        groupBox = new QGroupBox(layoutWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        horizontalLayout_6 = new QHBoxLayout(groupBox);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        la_offDir = new QLabel(groupBox);
+        la_offDir->setObjectName(QString::fromUtf8("la_offDir"));
+
+        horizontalLayout_5->addWidget(la_offDir);
+
+        pb_offDir = new QPushButton(groupBox);
+        pb_offDir->setObjectName(QString::fromUtf8("pb_offDir"));
+        pb_offDir->setMaximumSize(QSize(32, 16777215));
+
+        horizontalLayout_5->addWidget(pb_offDir);
+
+
+        horizontalLayout_6->addLayout(horizontalLayout_5);
+
+
+        verticalLayout_2->addWidget(groupBox);
+
+        groupBox_2 = new QGroupBox(layoutWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         horizontalLayout_2 = new QHBoxLayout(groupBox_2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -131,7 +165,7 @@ public:
 
         verticalLayout_2->addWidget(groupBox_2);
 
-        groupBox_8 = new QGroupBox(CTahoOpt);
+        groupBox_8 = new QGroupBox(layoutWidget);
         groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
         gridLayout = new QGridLayout(groupBox_8);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
@@ -181,15 +215,23 @@ public:
 
         verticalLayout_2->addWidget(groupBox_8);
 
-
-        horizontalLayout_4->addLayout(verticalLayout_2);
-
-        buttonBox = new QDialogButtonBox(CTahoOpt);
+        layoutWidget1 = new QWidget(CTahoOpt);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(489, 9, 77, 83));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        buttonBox = new QDialogButtonBox(layoutWidget1);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setOrientation(Qt::Vertical);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-        horizontalLayout_4->addWidget(buttonBox);
+        verticalLayout_3->addWidget(buttonBox);
+
+        pushButton = new QPushButton(layoutWidget1);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        verticalLayout_3->addWidget(pushButton);
 
         QWidget::setTabOrder(cb_lang, spinBox);
         QWidget::setTabOrder(spinBox, pb_update);
@@ -214,6 +256,9 @@ public:
         groupBox_4->setTitle(QApplication::translate("CTahoOpt", "Sprache", nullptr));
 
         groupBox_7->setTitle(QApplication::translate("CTahoOpt", "maximale Anzahl Threads", nullptr));
+        groupBox->setTitle(QApplication::translate("CTahoOpt", "QtLocation: offline map Directory", nullptr));
+        la_offDir->setText(QApplication::translate("CTahoOpt", "TextLabel", nullptr));
+        pb_offDir->setText(QApplication::translate("CTahoOpt", "...", nullptr));
         groupBox_2->setTitle(QApplication::translate("CTahoOpt", "Quelle", nullptr));
         pb_update->setText(QApplication::translate("CTahoOpt", "update Quell-URLs", nullptr));
         label->setText(QApplication::translate("CTahoOpt", "Cache g\303\274ltig f\303\274r:", nullptr));
@@ -222,6 +267,7 @@ public:
         label_4->setText(QApplication::translate("CTahoOpt", "Kommandozeile (KMZ):", nullptr));
         label_5->setText(QApplication::translate("CTahoOpt", "Kommandozeile (GZ):", nullptr));
         label_6->setText(QApplication::translate("CTahoOpt", "Platzhalter: $Q: Quelle; $Z: Zielfile; $L: Listfile; $ verdoppeln", nullptr));
+        pushButton->setText(QApplication::translate("CTahoOpt", "Speichern", nullptr));
     } // retranslateUi
 
 };

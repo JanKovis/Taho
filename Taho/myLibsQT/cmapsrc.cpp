@@ -89,7 +89,7 @@ CMapSrc *CMapSrc::initV(QString name, QString url,bool isPrivate,unsigned char m
 }
 Q_DECLARE_METATYPE(CMapSrc*)
 
-CMapSrc *CMapSrc::initP(QString name, QString url,bool isPrivate, QString ext,int maxThreads, QString pref,unsigned char maxZoom)
+CMapSrc *CMapSrc::initP(QString name, QString url, bool isPrivate, QString ext, int maxThreads, QString pref, unsigned char maxZoom, int mapID, QString mapDefin)
 {
     CMapSrc *ret;
     bool isNew=false;
@@ -108,6 +108,8 @@ CMapSrc *CMapSrc::initP(QString name, QString url,bool isPrivate, QString ext,in
     ret->m_ext=ext;
     ret->m_url=url;
     ret->m_maxThreads=maxThreads;
+    ret->m_mapID=mapID;
+    ret->m_mapDefin=mapDefin;
     if(pref.isEmpty())
         ret->m_pref=name.left(3);
     else
@@ -191,6 +193,8 @@ void CMapSrc::writeTaho(QString path,bool onlyPriv)
                 {
                 case MAP_BAS:
                     fprintf(fTaho,"\t\t\t<maxzoom>%d</maxzoom>\n",map->m_maxZoom);
+                    fprintf(fTaho,"\t\t\t<QTLocID>%d</QTLocID>\n",map->m_mapID);
+                    fprintf(fTaho,"\t\t\t<QTLocDef>%s</QTLocDef>\n",map->m_mapDefin.toStdString().c_str());
                     break;
                 case MAP_VECT:
                     fprintf(fTaho,"\t\t\t<offset>%d</offset>\n",map->m_offset);
@@ -277,15 +281,23 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
                     maxThreads=1;
             }
             QString tmpstr;
+            int mapId=1;
+            QString mapDefin="l";
             switch(xTaho->readVal_intDef(sSrc,"type"))
             {
                 case MAP_DEF:
                     m_src=sName;
                 [[clang::fallthrough]]; case MAP_BAS:
                     maxzoom=static_cast<unsigned char>(xTaho->readVal_intDef(sSrc,"maxzoom",255));
+                    mapId=xTaho->readVal_intDef(sSrc,"QTLocID",1);
+                    xTaho->readValB(tmpstr,sSrc,"QTLocDef");
+                    if(tmpstr.contains('h',Qt::CaseInsensitive))
+                        mapDefin="h";
+                    else
+                        mapDefin="l";
                 [[clang::fallthrough]]; case MAP_OVR:
                     xTaho->readValB(tmpstr,sSrc,"prefix");
-                    initP(sName,sURL,isMysrc,sExt,static_cast<unsigned char>(maxThreads),tmpstr,maxzoom);
+                    initP(sName,sURL,isMysrc,sExt,static_cast<unsigned char>(maxThreads),tmpstr,maxzoom,mapId,mapDefin);
                     break;
                 case MAP_VECT:
                     xTaho->readValB(tmpstr,sSrc,"prefix");

@@ -78,7 +78,6 @@ Fehler bei der Zoom-Level-Auswahl behoben
 #define T_SET "default.taho"
 #define T_NA "tna.png"
 
-static QString OsmUrl="https://dimitrijunker.lima-city.de/OSM/";
 
 TahoMainW::TahoMainW(QWidget *parent) :
     QMainWindow(parent),
@@ -96,6 +95,9 @@ TahoMainW::TahoMainW(QWidget *parent) :
     m_tahoParam.setFile("");
     ui->rb_png->setChecked(true);
     m_opt.m_pLanguage=&m_language;
+    m_opt.m_version=this->windowTitle();
+
+    m_opt.m_version.remove(0,5);
 
 
     for(int i=1;i<19;i++)
@@ -116,13 +118,13 @@ TahoMainW::TahoMainW(QWidget *parent) :
 
     if(m_opt.m_par.isEmpty())
     {
-        QString path=m_opt.m_persPath+T_SET;
-        execDone=loadTaho(path);    //1. Versuch unter eigene Dateien
+        m_opt.m_tahoPfad=m_opt.m_persPath+T_SET;
+        execDone=loadTaho(m_opt.m_tahoPfad);    //1. Versuch unter eigene Dateien
         if(!execDone)
         {
             execDone=loadTaho(m_opt.m_prgPath+T_SET);       //dann Versuch 2 unter eigene Dateien
             if(execDone)        //ist im Prg-Ordner, soll aber in Eigene Dateien Sein
-                saveTaho(path);
+                saveTaho(m_opt.m_tahoPfad);
         }
     }
     else
@@ -157,7 +159,7 @@ enum MAPTYPES {MAP_PNG,MAP_JPG,MAP_PNG_TILE};
 /////////////////////////////////////////////////////////////////////////////
 // TahoMainW Dialogfeld
 
-static int SizeP[]={SIZE_FREE,SIZE_NONE,256,512,1024,2048,4096,8192,16384,-1};
+static int SizeP[]={SIZE_FREE,SIZE_NONE,SIZE_QT,256,512,1024,2048,4096,8192,16384,-1};
 
 /*
 void TahoMainW::DoDataExchange(CDataExchange* pDX)
@@ -294,15 +296,20 @@ void TahoMainW::OnGetOut()
 
 void TahoMainW::on_actionEinstellungen_speichern_triggered()
 {
-    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Einstellungen"),"",tr("TAHO-File(*.taho)"));
+
+    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Einstellungen"),m_opt.m_tahoPfad,tr("TAHO-File(*.taho)"));
     if(!path.isNull())
         saveTaho(path);
 }
 void TahoMainW::saveTaho(QString &path)
 {
     CGeoRect gr(ui->le_lat1->text().toDouble(),ui->le_lat2->text().toDouble(),ui->le_lon1->text().toDouble(),ui->le_lon2->text().toDouble());
+
     if(!gr.isValid())
+    {
+        QMessageBox::warning(nullptr, tr("Speichern"), tr("Die Koordinaten sind ungültig"));
         return;
+    }
 //Taho-File öffnen falls gewünscht
     QFile fTaho(path);
     if(fTaho.open(QIODevice::WriteOnly))
@@ -310,19 +317,18 @@ void TahoMainW::saveTaho(QString &path)
         QTextStream oTaho(&fTaho);
         oTaho << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
         oTaho << "<taho version=\"1.0\" creator=\"Taho.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n";
-        oTaho << "\t<options>\n";
+/*        oTaho << "\t<options>\n";
         //:put here the abreviation of the new Language (for ex. en for english, fr for frensh, es for spanish,...
         oTaho << "\t\t<language>" << tr("de") <<"</language>\n";
         oTaho << "\t\t<zip>" << m_opt.getZipPath() << "</zip>\n";
         oTaho << "\t\t<zippar>" << m_opt.getZipPar() << "</zippar>\n";
         oTaho << "\t\t<ungzpar>" << m_opt.getUnGzPar() << "</ungzpar>\n";
+        oTaho << "\t\t<OfflineDir>" << m_opt.getOffDirPath() << "</OfflineDir>\n";
         oTaho << "\t\t<maxThreads>" << m_opt.m_tasks << "</maxThreads>\n";
-
-        oTaho << "\t\t<OsmUrl>" << OsmUrl << "</OsmUrl>\n";
+        oTaho << "\t\t<OsmUrl>" << m_opt.m_osmUrl << "</OsmUrl>\n";
         oTaho << "\t</options>\n";
-
+*/
         oTaho << "\t<params>\n";
-
         oTaho << "\t\t<lat1>" << gr.m_n << "</lat1>\n";
         oTaho << "\t\t<lat2>" << gr.m_s << "</lat2>\n";
         oTaho << "\t\t<lon1>" << gr.m_w << "</lon1>\n";
@@ -397,51 +403,81 @@ bool TahoMainW::loadTaho(QString pfad)
     if(m_opt.loadTahoSrc(pfad,&sTaho))
         OnSelchangeSourceP();
     QString source;
+    m_opt.setOffDirPath("");
+    m_opt.setZipPath("");
     if(!sTaho.isEmpty())
     {
-        QString sOpt,tmp;	//CHG: TAHO 2.10f DYJ
-        if(!CXmlFile::readValB(sOpt,sTaho,"options"))	//Taho Vers. <2.10
+        m_opt.m_tahoPfad=pfad;
+        QSettings settings("Dimitri-Junker.de","Taho");
+        QString vers=settings.value("Version").toString();
+        if(vers.isEmpty())
         {
-            sOpt=sTaho;
-            if(CXmlFile::readValB(tmp,sOpt,"zip") && !tmp.isEmpty())
+            QString sOpt,tmp;	//CHG: TAHO 2.10f DYJ
+            if(!CXmlFile::readValB(sOpt,sTaho,"options"))	//Taho Vers. <2.10
+            {
+                sOpt=sTaho;
+                if(CXmlFile::readValB(tmp,sOpt,"zip") && !tmp.isEmpty())
+                    m_opt.setZipPath(tmp);
+                if(CXmlFile::readValB(tmp,sTaho,"zippar")&& !tmp.isEmpty())
+                    m_opt.setZipPar(tmp);
+            }
+            else
+            {
+
+
+                CXmlFile::readValB(tmp,sOpt,"zip");
                 m_opt.setZipPath(tmp);
-            if(CXmlFile::readValB(tmp,sTaho,"zippar")&& !tmp.isEmpty())
+                CXmlFile::readValB(tmp,sTaho,"zippar");
                 m_opt.setZipPar(tmp);
+                CXmlFile::readValB(tmp,sTaho,"ungzpar");
+                m_opt.setUnGzPar(tmp);
+                if(CXmlFile::readValB(tmp,sOpt,"OsmUrl") && !tmp.isEmpty())
+                    m_opt.m_osmUrl=tmp;
+                CXmlFile::readValB(tmp,sOpt,"OfflineDir");
+                m_opt.setOffDirPath(tmp);
+
+            }
+            m_opt.m_tasks=static_cast<int>(qMax(1,CXmlFile::readVal_intDef(sOpt,"maxThreads",QThread::idealThreadCount())));
+
+            QString lang="";
+            if(CXmlFile::readValB(lang,sOpt,"language"))
+            {
+                bool ok;
+                int langNr=lang.toInt(&ok,0);
+                if(ok)
+                {
+                    switch(langNr)
+                    {
+                    case 7:
+                        lang="de";
+                        break;
+                    case 9:
+                        lang="en";
+                        break;
+                    case 12:
+                        lang="fr";
+                        break;
+                    }
+                }
+                if(lang=="de")
+                    qApp->removeTranslator(&m_language);
+                else
+                {
+                    m_language.load("taho_"+lang);
+                    qApp->installTranslator(&m_language);
+                }
+            }
+            m_opt.saveOptions();
         }
         else
         {
-            CXmlFile::readValB(tmp,sOpt,"zip");
-            m_opt.setZipPath(tmp);
-            CXmlFile::readValB(tmp,sTaho,"zippar");
-            m_opt.setZipPar(tmp);
-            CXmlFile::readValB(tmp,sTaho,"ungzpar");
-            m_opt.setUnGzPar(tmp);
-            if(CXmlFile::readValB(tmp,sOpt,"OsmUrl") && !tmp.isEmpty())
-                OsmUrl=tmp;
-
-        }
-        m_opt.m_tasks=static_cast<int>(qMax(1,CXmlFile::readVal_intDef(sOpt,"maxThreads",QThread::idealThreadCount())));
-
-        QString lang="";
-        if(CXmlFile::readValB(lang,sOpt,"language"))
-        {
-            bool ok;
-            int langNr=lang.toInt(&ok,0);
-            if(ok)
-            {
-                switch(langNr)
-                {
-                case 7:
-                    lang="de";
-                    break;
-                case 9:
-                    lang="en";
-                    break;
-                case 12:
-                    lang="fr";
-                    break;
-                }
-            }
+            m_opt.setZipPath(settings.value("zip").toString());
+            m_opt.setZipPar(settings.value("zippar").toString());
+            m_opt.setUnGzPar(settings.value("ungzpar").toString());
+            m_opt.m_osmUrl=settings.value("OsmUrl").toString();
+            m_opt.setOffDirPath(settings.value("OfflineDir").toString());
+            m_opt.m_tasks=qMax(1,settings.value("maxThreads").toInt());
+            QString lang=settings.value("language").toString();
             if(lang=="de")
                 qApp->removeTranslator(&m_language);
             else
@@ -450,7 +486,6 @@ bool TahoMainW::loadTaho(QString pfad)
                 qApp->installTranslator(&m_language);
             }
         }
-
         QString sParams;
         CXmlFile::readValB(sParams,sTaho,"params");
         if(!sParams.isEmpty())
@@ -568,21 +603,19 @@ bool TahoMainW::loadTaho(QString pfad)
             ui->le_out->setDisabled(isAuto);
             ui->pb_out->setDisabled(isAuto);
             if(isAuto)
-            {
-                QFileInfo fi(m_opt.m_prgPath,source);
-                out=fi.path();
-            }
-            ui->le_out->setText(out);
+                setAutoPath();
+            else
+                ui->le_out->setText(out);
 
 
             int nameBy=CXmlFile::readVal_intDef(sParams,"nameBy");
             ui->rb_nbNr->setChecked(nameBy==NB_NUM);
             ui->rb_nbKoord->setChecked(nameBy==NB_COORD);
             ui->rb_nbDir->setChecked(nameBy==NB_DIR);
-            m_opt.setCache(CXmlFile::readVal_intDef(sParams,"cacheDays",7));
+            m_opt.setCache(static_cast<unsigned int>(CXmlFile::readVal_intDef(sParams,"cacheDays",7)));
 
-            QString url=OsmUrl+"bbox-tool/bbox.html";
-            QDesktopServices::openUrl(QUrl(url) );
+//            QString url=m_opt.m_osmUrl+"bbox-tool/bbox.html";
+//            QDesktopServices::openUrl(QUrl(url) );
 
             ret=true;
         }
@@ -687,7 +720,7 @@ bool TahoMainW::addMaps2ListP(QList<MAKEMAPSP *> &mmList,SDLM_DATA *data, int si
 
     if(freesize)
     {
-        mkM1.xloopd = tile.x();
+        mkM1.xloop = tile.x();
         mkM1.yloop = tile.y();
         mkM1.xsize = tile2.x()-tile.x()+1;
         mkM1.ysize = tile2.y()-tile.y()+1;
@@ -698,7 +731,7 @@ bool TahoMainW::addMaps2ListP(QList<MAKEMAPSP *> &mmList,SDLM_DATA *data, int si
     else
     {
         mkM1.xsize = mkM1.ysize = 0;
-        for (mkM1.xloopd = tile.x() ;mkM1.xloopd <= tile2.x();mkM1.xloopd++)
+        for (mkM1.xloop = tile.x() ;mkM1.xloop <= tile2.x();mkM1.xloop++)
         {
             for (mkM1.yloop = tile.y();mkM1.yloop <= tile2.y();mkM1.yloop++)
             {
@@ -766,7 +799,7 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
     data->m_outBas=ui->le_out->text();
     if(!data->m_outBas.isEmpty() && !data->m_outBas.endsWith("/") &&! data->m_outBas.endsWith("\\"))
         data->m_outBas+="/";
-    if(sizeP!=SIZE_VECTOR && sizeP!=SIZE_NONE )	//bei Tiles auch keine Kal-Files
+    if(sizeP!=SIZE_VECTOR && sizeP!=SIZE_NONE&& sizeP!=SIZE_QT )	//bei Tiles auch keine Kal-Files
     {
         for(int i=0;i<ANZ_KAL;i++)
             data->m_makeKal[i]=ui->lw_kal->item(i)->checkState()==Qt::Checked;
@@ -774,15 +807,6 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
         data->m_PWconvBatchname = "PWconf";
         if(data->m_makeKal[PATHAWAY])
             CPixmap::Ini_batch_PWMapConvert(data->m_PWconvBatchname);
-    }
-    QString out=data->m_outBas+"map/";
-    QDir dirH;
-    if(!dirH.mkpath(out))
-    {
-        QMessageBox::warning(nullptr, tr("Ausgabeverzeichnis"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
-                                      QMessageBox::Ok);
-        delete data;
-        return nullptr;
     }
     data->m_sizeP=sizeP;
     data->m_nameBy=nameBy();
@@ -798,6 +822,7 @@ SDLM_DATA * TahoMainW::initData(int sizeP)
     data->m_maxCacheDays=m_opt.getCache();
     data->m_errTxts.clear();
     data->m_packer=m_opt.getZipPath();
+    data->m_offDir=m_opt.getOffDirPath();
     data->m_unGz=m_opt.getUnGzPar();
 
     return data;
@@ -846,9 +871,37 @@ void TahoMainW::OnSelchangeSizec(int size)
         ui->rb_jpg->setChecked(false);
         ui->rb_png->setChecked(true);
     }
+    setAutoPath();
 
 }
+void TahoMainW::setAutoPath()
+{
+    if(ui->cb_auto->isChecked())
+    {
+        QString outDir;
+        if(SizeP[ui->cb_size->currentIndex()]==SIZE_QT)
+        {
+            outDir=m_opt.getOffDirPath();
+            if(outDir.isEmpty())
+            {
+                m_opt.on_pb_offDir_clicked();
 
+                if(QMessageBox::question(nullptr,tr("Optionen sichern?"),tr("Sollen die Optionen gesichert werdeen?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+                    m_opt.saveOptions();
+                outDir=m_opt.getOffDirPath();
+            }
+
+        }
+        else
+        {
+            QString name=CMapSrc::getSrc();
+            QFileInfo fi(m_opt.m_persPath,name);
+            outDir=fi.filePath();
+
+        }
+        ui->le_out->setText((outDir));
+    }
+}
 void TahoMainW::OnHelpb()
 {
     OnHelpB();
@@ -903,25 +956,30 @@ void loadVMapInThread( MAKEMAPSV * aktMap )
 void loadPMapInThread( MAKEMAPSP *aktMap)
 {
     CMapSrc *mapSrc=static_cast<CMapSrc *>(aktMap->m_sdlm->m_maps[0]);
-    QString outPath=aktMap->m_sdlm->m_outBas+"map/";
+    bool nurTiles=aktMap->m_sdlm->m_sizeP==SIZE_NONE || aktMap->m_sdlm->m_sizeP==SIZE_QT;
+    QString outPath;
+    if(nurTiles)
+        outPath=aktMap->m_sdlm->m_outBas;
+    else
+        outPath=aktMap->m_sdlm->m_outBas+"map/";
 
-    CPixmap pixm(aktMap->zoom,aktMap->m_sdlm->m_sizeP,static_cast<int>(aktMap->xloopd),static_cast<int>(aktMap->yloop),aktMap->m_sdlm->m_nameBy,aktMap->m_sdlm->m_maxCacheDays,outPath,aktMap->m_sdlm->m_bpp,aktMap->m_sdlm->m_pictType,aktMap->xsize,aktMap->ysize,mapSrc->m_pref);
+    CPixmap pixm(aktMap,outPath,mapSrc->m_pref);
     qDebug() << pixm.m_filename;
 
     QProgressDialog *progD=aktMap->m_sdlm->m_progD;
-    if(aktMap->m_sdlm->m_sizeP!=SIZE_NONE)
-    {
-        CGeoRect gRect;
-        pixm.MakeMapTile(aktMap->m_sdlm,&gRect);
-        aktMap->m_sdlm->errs|=pixm.MakeMapCal(aktMap->m_sdlm->m_makeKal,aktMap->m_sdlm->m_PWconvBatchname,&gRect);
-    }
-    else
+    if(nurTiles)
     {
         for(int ov=0;ov<aktMap->m_sdlm->m_maps.size();ov++)
            pixm.LoadTile(aktMap->m_sdlm,ov);
         delete aktMap;
         aktMap=nullptr;
-}
+    }
+    else
+    {
+        CGeoRect gRect;
+        pixm.MakeMapTile(aktMap->m_sdlm,&gRect);
+        aktMap->m_sdlm->errs|=pixm.MakeMapCal(aktMap->m_sdlm->m_makeKal,aktMap->m_sdlm->m_PWconvBatchname,&gRect);
+    }
     if(progD)
         progD->setValue(progD->value()+1);
 }
@@ -945,9 +1003,21 @@ void TahoMainW::makePmap()
     if(minzoom<1)
         minzoom=1;
 //2do    m_maps=m_mapNr=0;
-
-    SDLM_DATA *data=initData(SizeP[ui->cb_size->currentIndex()]);
-    //psi->name="tah"
+    int size=ui->cb_size->currentIndex();
+    SDLM_DATA *data=initData(SizeP[size]);
+    if(SizeP[size]!=SIZE_NONE && SizeP[size]!=SIZE_QT)
+    {
+        QString out=data->m_outBas+"map/";
+        QDir dirH;
+        if(!dirH.mkpath(out))
+        {
+            QMessageBox::warning(nullptr, tr("Ausgabeverzeichnis"), tr("Kann Ausgabeverzeichnis nicht erzeugen"),
+                                          QMessageBox::Ok);
+            delete data;
+            return;
+        }
+    }
+        //psi->name="tah"
     data->m_maps.insert(0,map);
     int maxThreads=qMin(static_cast<int>(m_opt.m_tasks),map->m_maxThreads);
 
@@ -982,7 +1052,7 @@ void TahoMainW::makePmap()
 
     if(!fi.exists())	// prüfen ob das File bereits besteht
     {
-        QString url=OsmUrl+"taho/tna.png";
+        QString url=m_opt.m_osmUrl+"taho/tna.png";
         urlDownload::downloadFile(url, data->m_tna);
     }
 
@@ -1009,6 +1079,10 @@ void TahoMainW::makePmap()
         }
     }
     data->m_bpp=ui->cb_bpp->currentIndex();
+
+
+
+
     if(!mmList.isEmpty())
     {
          int anzahlKarten=mmList.size();
@@ -1245,13 +1319,7 @@ void TahoMainW::OnSelchangeSourceP()
         }
     }
 
-    if(ui->cb_auto->isChecked())
-    {
-        QString name=CMapSrc::getSrc();
-        QFileInfo fi(m_opt.m_persPath,name);
-        ui->le_out->setText(fi.filePath());
-    }
-
+    setAutoPath();
 }
 void TahoMainW::OnSelchangedMapType(int type)
 {
@@ -1317,7 +1385,7 @@ void TahoMainW::OnBnClickedBbox()
 
 {
 
-    QString url=OsmUrl+"bbox-tool/bbox.html";
+    QString url=m_opt.m_osmUrl+"bbox-tool/bbox.html";
     QDesktopServices::openUrl(QUrl(url) );
 
     if(QMessageBox::question(nullptr, tr("BBox-Tool"), tr("Wähle Bereich in Browser-Fenster und kopiere das <bbox...> unten links in die Zwischenablage, dann klicke den Knopf 'OK'"),
