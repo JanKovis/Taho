@@ -886,7 +886,7 @@ void TahoMainW::setAutoPath()
             {
                 m_opt.on_pb_offDir_clicked();
 
-                if(QMessageBox::question(nullptr,tr("Optionen sichern?"),tr("Sollen die Optionen gesichert werdeen?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+                if(QMessageBox::question(nullptr,tr("Optionen sichern?"),tr("Sollen die Optionen gesichert werden?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
                     m_opt.saveOptions();
                 outDir=m_opt.getOffDirPath();
             }
