@@ -47,7 +47,6 @@ public slots:
     void on_pb_offDir_clicked();
 private slots:
     void on_pushButton_clicked();
-    void on_buttonBox_accepted();
 };
 
 #endif // CTAHOOPT_H

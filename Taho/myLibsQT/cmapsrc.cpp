@@ -168,12 +168,15 @@ CMapSrc *CMapSrc::initP(QString name, QString url, bool isPrivate, QString ext, 
 
 void CMapSrc::writeTaho(QString path,bool onlyPriv)
 {
-    FILE *fTaho=fopen(path.toLatin1(),"w");
-    if(fTaho)
+
+    QFile fTaho(path);
+    if(fTaho.open(QIODevice::WriteOnly))
     {
-        fprintf(fTaho,"<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");	//CHG: TAHO 2.10g DYJ
-        fprintf(fTaho,"<taho version=\"1.0\" creator=\"Taho.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n");
-        fprintf(fTaho,"\t<mapallsrc>\n");
+        QTextStream sTaho(&fTaho);
+
+        sTaho << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+        sTaho << "<taho version=\"1.0\" creator=\"Taho.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n";
+        sTaho << "\t<mapallsrc>\n";
 
         QMap<QString,CMapSrc *>::iterator pos=m_mapSrc.begin();
         while (pos != m_mapSrc.end())
@@ -183,44 +186,43 @@ void CMapSrc::writeTaho(QString path,bool onlyPriv)
             pos++;
             if(!onlyPriv || map->m_isPrivate)
             {
-                fprintf(fTaho,"\t\t<src>\n");
-                fprintf(fTaho,"\t\t\t<name>%s</name>\n",name.toStdString().c_str());
-                fprintf(fTaho,"\t\t\t<prefix>%s</prefix>\n",map->m_pref.toStdString().c_str());
-                fprintf(fTaho,"\t\t\t<url>%s</url>\n",map->m_url.toStdString().c_str());
-                fprintf(fTaho,"\t\t\t<ext>%s</ext>\n",map->m_ext.toStdString().c_str());
-                fprintf(fTaho,"\t\t\t<type>%d</type>\n",map->m_type);
+                sTaho << "\t\t<src>\n";
+                sTaho << "\t\t\t<name>"<< name <<"</name>\n";
+                sTaho << "\t\t\t<prefix>" << map->m_pref <<"</prefix>\n";
+                sTaho << "\t\t\t<url>" << map->m_url << "</url>\n";
+                sTaho << "\t\t\t<ext>"<<map->m_ext<<"</ext>\n";
+                sTaho << "\t\t\t<type>"<<map->m_type<<"</type>\n";
                 switch(static_cast<int>(map->m_type))
                 {
                 case MAP_BAS:
-                    fprintf(fTaho,"\t\t\t<maxzoom>%d</maxzoom>\n",map->m_maxZoom);
-                    fprintf(fTaho,"\t\t\t<QTLocID>%d</QTLocID>\n",map->m_mapID);
-                    fprintf(fTaho,"\t\t\t<QTLocDef>%s</QTLocDef>\n",map->m_mapDefin.toStdString().c_str());
+                    sTaho << "\t\t\t<maxzoom>"<< map->m_maxZoom <<"</maxzoom>\n";
+                    sTaho << "\t\t\t<QTLocID>"<< map->m_mapID <<"</QTLocID>\n";
+                    sTaho << "\t\t\t<QTLocDef>"<< map->m_mapDefin <<"</QTLocDef>\n";
                     break;
                 case MAP_VECT:
-                    fprintf(fTaho,"\t\t\t<offset>%d</offset>\n",map->m_offset);
-                    fprintf(fTaho,"\t\t\t<mapspf>%d</mapspf>\n",map->m_mapsPF);
+                    sTaho << "\t\t\t<offset>"<< map->m_offset <<"</offset>\n";
+                    sTaho << "\t\t\t<mapspf>"<< map->m_mapsPF <<"</mapspf>\n";
                 [[clang::fallthrough]]; case MAP_OSM:
-                    fprintf(fTaho,"\t\t\t<ksize>%f</ksize>\n",map->m_kSize);
+                    sTaho << "\t\t\t<ksize>"<< map->m_kSize <<"</ksize>\n";
                     break;
                 }
-                fprintf(fTaho,"\t\t</src>\n");
+                sTaho << "\t\t</src>\n";
             }
         }
-        fprintf(fTaho,"\t</mapallsrc>\n");
-        fprintf(fTaho,"\t<OsmIds>\n");
+        sTaho << "\t</mapallsrc>\n";
+        sTaho << "\t<OsmIds>\n";
         QMapIterator<QString, QString> iter(COsm::m_osmIDs);
 
         while(iter.hasNext())
         {
             iter.next();
-            fprintf(fTaho,"\t\t<ID>\n");
-            fprintf(fTaho,"\t\t\t<name>%s</name>\n",iter.key().toStdString().c_str());
-            fprintf(fTaho,"\t\t\t<IDV>%s</IDV>\n",iter.value().toStdString().c_str());
-            fprintf(fTaho,"\t\t</ID>\n");
+            sTaho << "\t\t<ID>\n";
+            sTaho << "\t\t\t<name>"<< iter.key() <<"</name>\n";
+            sTaho << "\t\t\t<IDV>"<< iter.value() <<"</IDV>\n";
+            sTaho << "\t\t</ID>\n";
         }
-        fprintf(fTaho,"\t</OsmIds>\n");
-        fprintf(fTaho,"</taho>\n");
-        fclose(fTaho);
+        sTaho << "\t</OsmIds>\n";
+        sTaho << "</taho>\n";
     }
 }
 
