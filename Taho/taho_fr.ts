@@ -66,12 +66,12 @@
     <message>
         <location filename="cdokmz.cpp" line="94"/>
         <source>Speicher KMZ Files</source>
-        <translation type="unfinished">Sauver fichiers KMZ</translation>
+        <translation>Sauver fichiers KMZ</translation>
     </message>
     <message>
         <location filename="cdokmz.cpp" line="94"/>
         <source>KMZ-Files(*.kmz)</source>
-        <translation type="unfinished">Fichiers KMZ(*.kmz)</translation>
+        <translation>Fichiers KMZ(*.kmz)</translation>
     </message>
     <message>
         <location filename="cdokmz.cpp" line="188"/>
@@ -162,7 +162,7 @@
         <location filename="ctahocopy.cpp" line="29"/>
         <location filename="ctahocopy.cpp" line="46"/>
         <location filename="ctahocopy.cpp" line="60"/>
-        <location filename="ctahocopy.cpp" line="74"/>
+        <location filename="ctahocopy.cpp" line="73"/>
         <source>de</source>
         <translation>fr</translation>
     </message>
@@ -211,12 +211,12 @@
         <translation type="vanished">Relativ</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="28"/>
+        <location filename="ctahoopt.ui" line="35"/>
         <source>Sprache</source>
         <translation>langage</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="78"/>
+        <location filename="ctahoopt.ui" line="118"/>
         <source>Quelle</source>
         <translation>source</translation>
     </message>
@@ -225,17 +225,17 @@
         <translation type="vanished">export</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="84"/>
+        <location filename="ctahoopt.ui" line="124"/>
         <source>update Quell-URLs</source>
         <translation>update URL source</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="107"/>
+        <location filename="ctahoopt.ui" line="147"/>
         <source>Cache gültig für:</source>
         <translation>Validité du cache:</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="117"/>
+        <location filename="ctahoopt.ui" line="157"/>
         <source>Tage</source>
         <translation>jours</translation>
     </message>
@@ -256,39 +256,59 @@
         <translation type="vanished">Taho</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="62"/>
+        <location filename="ctahoopt.ui" line="69"/>
         <source>maximale Anzahl Threads</source>
         <translation>Nombre maximale de threads</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="140"/>
+        <location filename="ctahoopt.ui" line="85"/>
+        <source>QtLocation: offline map Directory</source>
+        <translation>QtLocation: Répertoire de carte  déconnecté</translation>
+    </message>
+    <message>
+        <location filename="ctahoopt.ui" line="180"/>
         <source>Packer (für KMZ &amp; GZ)</source>
         <translation>Compresseur (pour KMZ &amp;&amp; GZ)</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="170"/>
+        <location filename="ctahoopt.ui" line="210"/>
         <source>Kommandozeile (KMZ):</source>
         <translation>Ligne de commande (KMZ):</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="180"/>
+        <location filename="ctahoopt.ui" line="220"/>
         <source>Kommandozeile (GZ):</source>
         <translation>Ligne de commande(GZ):</translation>
     </message>
     <message>
-        <location filename="ctahoopt.ui" line="190"/>
+        <location filename="ctahoopt.ui" line="230"/>
         <source>Platzhalter: $Q: Quelle; $Z: Zielfile; $L: Listfile; $ verdoppeln</source>
         <translation>Remplacer le fichier source par $Q, le fichier kmz par $Z, fichier-liste par: $L, doubler $</translation>
     </message>
     <message>
-        <location filename="ctahoopt.cpp" line="109"/>
+        <location filename="ctahoopt.ui" line="262"/>
+        <source>Speichern</source>
+        <translation>Sauver</translation>
+    </message>
+    <message>
+        <location filename="ctahoopt.cpp" line="83"/>
         <source>Packer</source>
         <translation>Compresseur </translation>
     </message>
     <message>
-        <location filename="ctahoopt.cpp" line="109"/>
+        <location filename="ctahoopt.cpp" line="83"/>
         <source>Programm(*.exe);;Alle(*.*)</source>
         <translation>programme(*.exe);;tous(*.*)</translation>
+    </message>
+    <message>
+        <location filename="ctahoopt.cpp" line="171"/>
+        <source>OfflineDir</source>
+        <translation>OfflineDir</translation>
+    </message>
+    <message>
+        <location filename="ctahoopt.cpp" line="185"/>
+        <source>de</source>
+        <translation>fr</translation>
     </message>
 </context>
 <context>
@@ -314,13 +334,13 @@
         <translation type="vanished">Fichiers Taho(*.taho)</translation>
     </message>
     <message>
-        <location filename="myLibsQT/cxmlfile.cpp" line="357"/>
+        <location filename="myLibsQT/cxmlfile.cpp" line="350"/>
         <source>Fehler bei Zelle
 </source>
         <translation>erreur dans celulle</translation>
     </message>
     <message>
-        <location filename="myLibsQT/cxmlfile.cpp" line="357"/>
+        <location filename="myLibsQT/cxmlfile.cpp" line="350"/>
         <source>Falscher Zellinhalt</source>
         <translation>contenant de celulle faux</translation>
     </message>
@@ -344,7 +364,7 @@
         <translation type="vanished">-&gt; %1 à des erreures</translation>
     </message>
     <message>
-        <location filename="myLibsQT/Logfile.cpp" line="67"/>
+        <location filename="myLibsQT/Logfile.cpp" line="57"/>
         <source>Logfile für: </source>
         <translation>Fichier Log pour:</translation>
     </message>
@@ -394,32 +414,14 @@
         <translation type="vanished">rien a faire</translation>
     </message>
     <message>
-        <location filename="myLibsQT/cmapsrc.cpp" line="579"/>
+        <location filename="myLibsQT/cmapsrc.cpp" line="518"/>
         <source>Bitte ID eingeben</source>
         <translation>SVP donner le ID</translation>
     </message>
     <message>
-        <location filename="myLibsQT/cmapsrc.cpp" line="587"/>
+        <location filename="myLibsQT/cmapsrc.cpp" line="526"/>
         <source>Bitte andere Quelle wählen oder sich auf der Homepage anmelden</source>
         <translation>Ou choisir une autre source ou registré sur le site de celui ci</translation>
-    </message>
-    <message>
-        <location filename="myLibsQT/cosm.cpp" line="386"/>
-        <source>	URLDownloadToFile(%1,%2) liefert ein &lt;a href=&quot;file:///%3&quot;&gt;html-File&lt;/a&gt; (Fehlermeldung?)&lt;br&gt;
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="myLibsQT/cosm.cpp" line="394"/>
-        <source>	URLDownloadToFile(%1,%2) kein png oder jpg&lt;br&gt;
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="myLibsQT/cpixmap.cpp" line="290"/>
-        <source>-&gt; %1 hat Fehler&lt;br&gt;
-</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -504,14 +506,14 @@
     </message>
     <message>
         <location filename="tahomainw.ui" line="137"/>
-        <location filename="tahomainw.ui" line="869"/>
-        <location filename="tahomainw.ui" line="931"/>
+        <location filename="tahomainw.ui" line="874"/>
+        <location filename="tahomainw.ui" line="936"/>
         <source>Hilfe</source>
         <translation>aide</translation>
     </message>
     <message>
         <location filename="tahomainw.ui" line="154"/>
-        <location filename="tahomainw.ui" line="949"/>
+        <location filename="tahomainw.ui" line="954"/>
         <source>Beenden</source>
         <translation>finir</translation>
     </message>
@@ -522,7 +524,7 @@
     </message>
     <message>
         <location filename="tahomainw.ui" line="298"/>
-        <location filename="tahomainw.ui" line="784"/>
+        <location filename="tahomainw.ui" line="789"/>
         <source>Quelle:</source>
         <translation>source:</translation>
     </message>
@@ -572,7 +574,7 @@
         <translation>rien (tuiles seulement )</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="732"/>
+        <location filename="tahomainw.ui" line="737"/>
         <source>Filetyp</source>
         <translation>Type de fichier</translation>
     </message>
@@ -582,173 +584,192 @@
         <translation>Fich. - Kal:</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="778"/>
+        <location filename="tahomainw.ui" line="694"/>
+        <source>QTOffline</source>
+        <translation>QTOffline</translation>
+    </message>
+    <message>
+        <location filename="tahomainw.ui" line="783"/>
         <source>Vektorkarten</source>
         <translation>Cartes vecteurs</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="850"/>
+        <location filename="tahomainw.ui" line="855"/>
         <source>Datei</source>
         <translation>fichier</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="859"/>
+        <location filename="tahomainw.ui" line="864"/>
         <source>Bearbeiten</source>
         <translation>Edition</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="885"/>
+        <location filename="tahomainw.ui" line="890"/>
         <source>Einstellungen laden</source>
         <translation>charger réglages</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="894"/>
+        <location filename="tahomainw.ui" line="899"/>
         <source>Einstellungen speichern</source>
         <translation>sauver réglages</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="903"/>
+        <location filename="tahomainw.ui" line="908"/>
         <source>Karten erstellen</source>
         <translation>produire cartes</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="908"/>
+        <location filename="tahomainw.ui" line="913"/>
         <source>OSMBugs holen</source>
         <translation>Charger bugs OSM</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="913"/>
+        <location filename="tahomainw.ui" line="918"/>
         <source>KMZ erstellen</source>
         <translation>Crée KMZ</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="922"/>
+        <location filename="tahomainw.ui" line="927"/>
         <source>Optionen</source>
         <translation>Paramètre</translation>
     </message>
     <message>
-        <location filename="tahomainw.ui" line="940"/>
+        <location filename="tahomainw.ui" line="945"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="299"/>
+        <location filename="tahomainw.cpp" line="288"/>
         <source>Ausgabe Verzeichnis</source>
         <translation>répertoire de sortie</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="310"/>
+        <location filename="tahomainw.cpp" line="300"/>
         <source>Speicher Einstellungen</source>
         <translation>sauver réglages</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="310"/>
-        <location filename="tahomainw.cpp" line="411"/>
+        <location filename="tahomainw.cpp" line="300"/>
+        <location filename="tahomainw.cpp" line="393"/>
         <source>TAHO-File(*.taho)</source>
         <translation>Fichier Taho(*.taho)</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="328"/>
         <source>de</source>
-        <translation>fr</translation>
+        <translation type="vanished">fr</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="411"/>
+        <location filename="tahomainw.cpp" line="393"/>
         <source>Lade Einstellungen</source>
         <translation>charger réglages</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="656"/>
+        <location filename="tahomainw.cpp" line="635"/>
         <source>Speicher OSM Bugs</source>
         <translation>Sauver bugs OSM</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="656"/>
+        <location filename="tahomainw.cpp" line="635"/>
         <source>GPS eXchange Format(*.gpx);;Generic Ascii(*.asc);;Alle(*.*)</source>
         <translation>GPS eXchange Format(*.gpx);;Generic Ascii(*.asc);;tous(*.*)</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="660"/>
+        <location filename="tahomainw.cpp" line="639"/>
         <source>Bugs kürzen</source>
         <translation>accourcir  bugs</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="660"/>
+        <location filename="tahomainw.cpp" line="639"/>
         <source>Sollen die Namen gekürzt und separat gespeichert werden?</source>
         <translation>Est ce que voulez accourcir les nom et sauver les séparer?</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="663"/>
+        <location filename="tahomainw.cpp" line="642"/>
         <source>OSM Bugs Textfile</source>
         <translation> bugs OSM fichier de texte</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="663"/>
+        <location filename="tahomainw.cpp" line="642"/>
         <source>Text-File(*.txt)</source>
         <translation>Fichier Texte(*.txt)</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="840"/>
+        <location filename="tahomainw.cpp" line="1014"/>
         <source>Ausgabeverzeichnis</source>
         <translation>Répertoire de sortie</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="840"/>
-        <location filename="tahomainw.cpp" line="1030"/>
-        <location filename="tahomainw.cpp" line="1201"/>
+        <location filename="tahomainw.cpp" line="1014"/>
+        <location filename="tahomainw.cpp" line="1039"/>
+        <location filename="tahomainw.cpp" line="1204"/>
         <source>Kann Ausgabeverzeichnis nicht erzeugen</source>
         <translation>Incapable de générer le répertoire de sortie</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="873"/>
+        <location filename="tahomainw.cpp" line="840"/>
         <source>Warnung</source>
-        <translation type="unfinished"></translation>
+        <translation>avertissement</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="874"/>
+        <location filename="tahomainw.cpp" line="310"/>
+        <source>Speichern</source>
+        <translation>Sauver</translation>
+    </message>
+    <message>
+        <location filename="tahomainw.cpp" line="310"/>
+        <source>Die Koordinaten sind ungültig</source>
+        <translation>les coordonnées sont invalides</translation>
+    </message>
+    <message>
+        <location filename="tahomainw.cpp" line="841"/>
         <source>Zoom %1 kommt wahrscheinlich aus Konfigurationsdatei, darf aber nicht benutzt werden.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom %1 provient probablement du fichier de configuration, mais ne peut pas être utilisé.</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="920"/>
-        <location filename="tahomainw.cpp" line="1166"/>
+        <location filename="tahomainw.cpp" line="889"/>
+        <source>Optionen sichern?</source>
+        <translation>sauver les options?</translation>
+    </message>
+    <message>
+        <location filename="tahomainw.cpp" line="915"/>
+        <location filename="tahomainw.cpp" line="1169"/>
         <source>Packer</source>
         <translation>Compresseur </translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="920"/>
-        <location filename="tahomainw.cpp" line="1166"/>
+        <location filename="tahomainw.cpp" line="915"/>
+        <location filename="tahomainw.cpp" line="1169"/>
         <source>Es ist kein Packer eingestellt. Bitte tragen Sie einen im folgenden Dialog ein.</source>
         <translation>No Compresseur est défini, SVP choisir un dans le dialogue suivant.</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="995"/>
-        <location filename="tahomainw.cpp" line="1002"/>
-        <location filename="tahomainw.cpp" line="1030"/>
-        <location filename="tahomainw.cpp" line="1176"/>
-        <location filename="tahomainw.cpp" line="1201"/>
+        <location filename="tahomainw.cpp" line="992"/>
+        <location filename="tahomainw.cpp" line="999"/>
+        <location filename="tahomainw.cpp" line="1039"/>
+        <location filename="tahomainw.cpp" line="1179"/>
+        <location filename="tahomainw.cpp" line="1204"/>
         <source>Karte erstellen</source>
         <translation>produire cartes</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="995"/>
-        <location filename="tahomainw.cpp" line="1176"/>
+        <location filename="tahomainw.cpp" line="992"/>
+        <location filename="tahomainw.cpp" line="1179"/>
         <source>Bereich ungültig</source>
         <translation>zone invalide</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1002"/>
+        <location filename="tahomainw.cpp" line="999"/>
         <source>Quelle ungültig</source>
         <translation>source  invalide</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1083"/>
-        <location filename="tahomainw.cpp" line="1225"/>
+        <location filename="tahomainw.cpp" line="1090"/>
+        <location filename="tahomainw.cpp" line="1228"/>
         <source>Abbruch</source>
         <translation>Annuler</translation>
     </message>
     <message numerus="yes">
-        <location filename="tahomainw.cpp" line="1086"/>
+        <location filename="tahomainw.cpp" line="1093"/>
         <source>Lade %n Karten</source>
         <translation>
             <numerusform>charger %n carte</numerusform>
@@ -756,48 +777,50 @@
         </translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1114"/>
-        <location filename="tahomainw.cpp" line="1254"/>
+        <location filename="tahomainw.cpp" line="1119"/>
+        <location filename="tahomainw.cpp" line="1257"/>
         <source>Log anzeigen</source>
         <translation>affichier log</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1118"/>
+        <location filename="tahomainw.cpp" line="1123"/>
         <source>Karte konnte nicht erzeugt werden, evtl. zu groß!</source>
-        <translation type="unfinished">La carte ne pouvais pas crée, peut être elle est trop grand!</translation>
-    </message>
-    <message>
-        <location filename="tahomainw.cpp" line="1121"/>
-        <source>
-
-Ihr Programm ist 32bit, versuchen Sie 64bit Version.</source>
-        <translation type="unfinished"></translation>
+        <translation>La carte ne pouvais pas crée, peut être elle est trop grand!</translation>
     </message>
     <message>
         <location filename="tahomainw.cpp" line="1126"/>
-        <location filename="tahomainw.cpp" line="1257"/>
-        <source>Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile</source>
-        <translation type="unfinished"></translation>
+        <source>
+
+Ihr Programm ist 32bit, versuchen Sie 64bit Version.</source>
+        <translation>
+
+Votre programme est en 32 bits, essayez la version 64 bits.</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1128"/>
-        <location filename="tahomainw.cpp" line="1259"/>
-        <source>Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile</source>
-        <translation type="unfinished"></translation>
+        <location filename="tahomainw.cpp" line="1131"/>
+        <location filename="tahomainw.cpp" line="1260"/>
+        <source>Mindestens ein Tile konnte nicht heruntergeladen werden. S. Logfile</source>
+        <translation>Au moins une tuile n&apos;a pas pu être téléchargée. voir fichier Log</translation>
     </message>
     <message>
         <location filename="tahomainw.cpp" line="1133"/>
-        <source>Nichts zu tun, evtl kein Zoomlevel ausgewählt?</source>
-        <translation type="unfinished"></translation>
+        <location filename="tahomainw.cpp" line="1262"/>
+        <source>Mindestens ein Tile konnte nicht heruntergeladen werden, aber es gab noch eine alte Version. S. Logfile</source>
+        <translation>Au moins une tuile n&apos;a pas pu être téléchargée, mais il y avait toujours une ancienne version.Voir fichier log</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1137"/>
-        <location filename="tahomainw.cpp" line="1268"/>
+        <location filename="tahomainw.cpp" line="1136"/>
+        <source>Nichts zu tun, evtl kein Zoomlevel ausgewählt?</source>
+        <translation>Rien à faire, éventuellement aucun niveau de zoom sélectionné?</translation>
+    </message>
+    <message>
+        <location filename="tahomainw.cpp" line="1140"/>
+        <location filename="tahomainw.cpp" line="1269"/>
         <source>Unbekannter Fehler. S. Logfile</source>
-        <translation type="unfinished">erreure inconu, voir fichier log</translation>
+        <translation>erreure inconu, voir fichier log</translation>
     </message>
     <message numerus="yes">
-        <location filename="tahomainw.cpp" line="1228"/>
+        <location filename="tahomainw.cpp" line="1231"/>
         <source>Lade %n Vektor-Karten</source>
         <translation>
             <numerusform>charger %n carte vecteur</numerusform>
@@ -805,32 +828,32 @@ Ihr Programm ist 32bit, versuchen Sie 64bit Version.</source>
         </translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1264"/>
+        <location filename="tahomainw.cpp" line="1265"/>
         <source>Nichts zu tun</source>
-        <translation type="unfinished"></translation>
+        <translation>Rien à faire</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1308"/>
+        <location filename="tahomainw.cpp" line="1307"/>
         <source>ein Tile wählen</source>
         <translation>choisir un tullier</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1308"/>
+        <location filename="tahomainw.cpp" line="1307"/>
         <source>Tiles(*.png *.jpg);;Alle(*.*)</source>
         <translation>tulliers(*.png *.jpg);;tous(*.*)</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1408"/>
+        <location filename="tahomainw.cpp" line="1391"/>
         <source>BBox-Tool</source>
         <translation>BBox Tool</translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1408"/>
+        <location filename="tahomainw.cpp" line="1391"/>
         <source>Wähle Bereich in Browser-Fenster und kopiere das &lt;bbox...&gt; unten links in die Zwischenablage, dann klicke den Knopf &apos;OK&apos;</source>
         <translation>Choisir zone dans la fenêtre du browser, et copier le &lt;bbox...&gt; en bas a gauche dans la  presse-papiers. Âpres cliquer sur le bouton « OK » </translation>
     </message>
     <message>
-        <location filename="tahomainw.cpp" line="1469"/>
+        <location filename="tahomainw.cpp" line="1452"/>
         <source>liesmich.pdf</source>
         <translation>lisezmoi.pdf</translation>
     </message>

@@ -14,9 +14,9 @@ public:
     QString defPath();
     QString defPath(bool defPathIsPrg);
     bool OnUpdSrc();
-    bool loadTahoSrc(QString path,QString *sTaho=nullptr,QString errOld="");
-    bool loadTahoSrc(bool defPathisPrg);
-    bool loadTahoSrc();
+    bool loadTahoSrc(QString path,QString *sTaho=nullptr,QString errOld="", int minVersion=0);
+    bool loadTahoSrc(bool defPathisPrg, int minVersion=0);
+    bool loadTahoSrc(int minVersion=0);
     static QString m_par;
     static QString m_prgPath;
     static QString m_persPath;

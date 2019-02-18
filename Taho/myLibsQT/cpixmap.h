@@ -38,7 +38,7 @@ typedef struct
     int m_done;
     int m_nameBy;
     bool m_vector;
-    int m_maxCacheDays;
+    unsigned int m_maxCacheDays;
     int errs;
     QStringList m_errTxts;
     QString m_tna;
@@ -46,12 +46,13 @@ typedef struct
     QString m_packer;
     QString m_unGz;
     QProgressDialog *m_progD;
+    QString m_offDir;
 }SDLM_DATA;
 
 typedef struct
 {
     int	zoom;
-    int xloopd;
+    int xloop;
     int yloop;
     int xsize;
     int ysize;
@@ -80,9 +81,8 @@ public:
     int GenCalibrationMap_GMI(CGeoRect &gr);
     int GenKml(CGeoRect &gr);
     CPixmap(int zoom, int xloop,int yloop,int xsize,int ysize,QString pfad,QImage **bMap,QRect rMap,int bpp);
-    CPixmap(int zoom, int size, int xloop,int yloop,int nameBy,unsigned int maxCacheDays,QString pfad,int bpp=2,QString ext=".png",int sizeX=0,int sizeY=0,QString prefix="OSM");	//CHG: TAHO 2.11a DYJ
-
-    void LoadTile(SDLM_DATA *data,int overlay=0);
+    CPixmap(MAKEMAPSP *map, QString pfad, QString prefix="OSM");
+    void LoadTile(SDLM_DATA *data, int overlay=0);
     unsigned int m_maxCacheDays;
     int MakeMapCal(bool *pMakeKal,QString &PWconvBatchname,CGeoRect *pgRect=nullptr);
     void MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect=nullptr, bool cacheMap=false);
@@ -116,9 +116,11 @@ private:
     int m_xtile;
     int m_widthX;
     int m_widthY;
+    int m_mapID;
+    QString m_mapDefin;
     QString m_pixExt;
     QString m_pfad;
 };
-enum{SIZE_MIN=9,SIZE_FREE,SIZE_NONE,SIZE_VECTOR};
+enum{SIZE_MIN=9,SIZE_FREE,SIZE_NONE,SIZE_VECTOR,SIZE_QT};
 
 #endif // CPIXMAP_H

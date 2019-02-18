@@ -20,7 +20,7 @@ class TahoMainW : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit TahoMainW(QWidget *parent = 0);
+    explicit TahoMainW(QWidget *parent = nullptr);
     ~TahoMainW();
     CPath m_tahoParam;
     QTranslator m_language;
@@ -42,6 +42,7 @@ private:
     bool addMaps2ListV(QList<MAKEMAPSV *> &mmList,SDLM_DATA *data,CGeoRect gr,CMapSrc *map);
     SDLM_DATA * initData(int size=SIZE_VECTOR);
     bool loadZoomL(int zl);
+    void setAutoPath();
 
 public slots:
     void OnSelchangeSizec(int size);
