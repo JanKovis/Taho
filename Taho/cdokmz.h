@@ -12,7 +12,7 @@ class CDoKmz : public QDialog
     Q_OBJECT
 
 public:
-    explicit CDoKmz(QWidget *parent = 0);
+    explicit CDoKmz(QWidget *parent = nullptr);
     ~CDoKmz();
     QString tmpFolder();
     QString m_tmpPath;
@@ -20,7 +20,7 @@ public:
     QString m_zipPar;
     QString	m_out;
     bool add2kmz(QString kmzPfad,QString pfad);
-    CDoKmz(QString zipPath, QString zipPar, QWidget *parent = 0);   // Standardkonstruktor
+    CDoKmz(QString zipPath, QString zipPar, QWidget *parent = nullptr);   // Standardkonstruktor
 protected:
     void changeEvent(QEvent *e);
 
