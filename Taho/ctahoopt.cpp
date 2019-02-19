@@ -17,9 +17,6 @@ Nötige Änderungen zur Anpassung an Visual Studio 2013
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QThread>
-#include <cgeorect.h>
-#include <qtextstream.h>
-#include <qsettings.h>
 
 QString m_osmUrl="https://dimitrijunker.lima-city.de/OSM/";
 
@@ -29,14 +26,12 @@ CTahoOpt::CTahoOpt(QWidget *parent) :
 {
     ui->setupUi(this);
     m_tasks = abs(QThread::idealThreadCount());
-
 }
 
 CTahoOpt::~CTahoOpt()
 {
     delete ui;
 }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Dialogfeld CTahoOpt
@@ -104,30 +99,26 @@ void CTahoOpt::OnZip()
         setZipPar("-min -a $Z @$L");
         setUnGzPar("-min -e $Q $Z");
     }
-
-
 }
-void CTahoOpt::setCache(unsigned int tage)
+
+void CTahoOpt::setCache(int tage)
 {
-    ui->sbCache->setValue(static_cast<int>( tage));
+    ui->sbCache->setValue(tage);
 }
 
-unsigned int CTahoOpt::getCache()
+int CTahoOpt::getCache()
 {
-    return static_cast<unsigned int>( ui->sbCache->value());
+    return ui->sbCache->value();
 }
+
 QString	CTahoOpt::getZipPath()
 {
-    return ui->la_zip->text();
+    return ui->le_zip->text();
 }
 
 void CTahoOpt::setZipPath(QString path)
 {
-    ui->la_zip->setText(path);
-}
-QString	CTahoOpt::getOffDirPath()
-{
-    return ui->la_offDir->text();
+    ui->le_zip->setText(QDir::toNativeSeparators(path));
 }
 
 void CTahoOpt::setOffDirPath(QString path)
@@ -155,39 +146,8 @@ void CTahoOpt::setUnGzPar(QString par)
 }
 void CTahoOpt::changeEvent(QEvent *e)
 {
-    switch (e->type())
+    if (e->type() == QEvent::LanguageChange)
     {
-    case QEvent::LanguageChange:
         ui->retranslateUi(this);
-        break;
-    default:
-        break;
     }
 }
-
-void CTahoOpt::on_pb_offDir_clicked()
-{
-    QFileInfo fi(getOffDirPath());
-    QString path_neu= QFileDialog::getExistingDirectory(this,tr("OfflineDir"),getOffDirPath());
-    if(path_neu.isEmpty())
-        return;
-    setOffDirPath(path_neu);
-
-}
-
-void CTahoOpt::on_pushButton_clicked()
-{
-    saveOptions();
-}
-void CTahoOpt::saveOptions()
-{
-    QSettings settings("Dimitri-Junker.de","Taho");
-    settings.setValue("language",tr("de"));
-    settings.setValue("zip",getZipPath());
-    settings.setValue("zippar",getZipPar());
-    settings.setValue("ungzpar",getUnGzPar());
-    settings.setValue("OfflineDir",getOffDirPath());
-    settings.setValue("maxThreads",m_tasks);
-    settings.setValue("OsmUrl",m_osmUrl);
-    settings.setValue("version",m_version);
- }

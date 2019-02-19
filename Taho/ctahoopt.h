@@ -3,8 +3,6 @@
 #include <cosmopt.h>
 #include <QTranslator>
 #include <QDialog>
-#include <qfile.h>
-#include <qtextstream.h>
 
 namespace Ui {
 class CTahoOpt;
@@ -16,9 +14,9 @@ class CTahoOpt : public QDialog, public COsmOpt
 
 public:
     explicit CTahoOpt(QWidget *parent = nullptr);
-    ~CTahoOpt();
-    void	setCache(unsigned int tage);
-    unsigned int getCache();
+    ~CTahoOpt() override;
+    void	setCache(int tage);
+    int	getCache();
     QString	getZipPath();
     void setZipPath(QString path);
     QString	getZipPar();
@@ -29,24 +27,27 @@ public:
     QString	getUnGzPar();
     void saveOptions();
 
-    int	m_tasks;
-    QTranslator *m_pLanguage;
+    int	m_tasks = -1;
+    QTranslator *m_pLanguage = nullptr;
     QString m_osmUrl;
     QString m_tahoPfad;
     QString m_version;
 
 protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
 
-private:
-    Ui::CTahoOpt *ui;
-public slots:
+private slots:
+
     void OnUpdSrc();
     void change_lang(QString lang);
     void OnZip();
     void on_pb_offDir_clicked();
-private slots:
     void on_pushButton_clicked();
-};
+
+private:
+
+    Ui::CTahoOpt *ui;
+
+    };
 
 #endif // CTAHOOPT_H
