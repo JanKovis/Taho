@@ -1189,7 +1189,6 @@
   <slot>OnDoTaho()</slot>
   <slot>OnZ0()</slot>
   <slot>OnZ2()</slot>
-  <slot>slot1()</slot>
   <slot>OnZAll()</slot>
   <slot>OnAutoOut()</slot>
   <slot>OnGetOut()</slot>

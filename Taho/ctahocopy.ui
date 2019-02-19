@@ -203,7 +203,6 @@
   <slot>OnGpl()</slot>
   <slot>OnDyj()</slot>
   <slot>OnOsmTaho()</slot>
-  <slot>slot1()</slot>
   <slot>OnOSMc()</slot>
  </slots>
 </ui>

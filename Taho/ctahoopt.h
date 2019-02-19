@@ -15,7 +15,8 @@ class CTahoOpt : public QDialog, public COsmOpt
 public:
     explicit CTahoOpt(QWidget *parent = nullptr);
     ~CTahoOpt() override;
-    void	setCache(int tage);
+
+    void setCache(int tage);
     int	getCache();
     QString	getZipPath();
     void setZipPath(QString path);
@@ -33,21 +34,21 @@ public:
     QString m_tahoPfad;
     QString m_version;
 
+public slots:
+    void on_pb_offDir_clicked();
+
 protected:
     void changeEvent(QEvent *e) override;
 
 private slots:
-
     void OnUpdSrc();
     void change_lang(QString lang);
     void OnZip();
-    void on_pb_offDir_clicked();
-    void on_pushButton_clicked();
+    void onButtonBox_clicked(QAbstractButton*);
 
 private:
-
     Ui::CTahoOpt *ui;
-
-    };
+    QAbstractButton *m_saveButton = nullptr;
+};
 
 #endif // CTAHOOPT_H

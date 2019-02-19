@@ -16,6 +16,7 @@ Nötige Änderungen zur Anpassung an Visual Studio 2013
 #include "ui_ctahoopt.h"
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QSettings>
 #include <QThread>
 
 QString m_osmUrl="https://dimitrijunker.lima-city.de/OSM/";
@@ -26,6 +27,11 @@ CTahoOpt::CTahoOpt(QWidget *parent) :
 {
     ui->setupUi(this);
     m_tasks = abs(QThread::idealThreadCount());
+
+    m_saveButton = ui->buttonBox->addButton(tr("Speichern"), QDialogButtonBox::ApplyRole);
+    m_saveButton->setIcon(QPixmap(":/images/document-save.png"));
+    connect(ui->buttonBox, &QDialogButtonBox::clicked,
+            this, &CTahoOpt::onButtonBox_clicked);
 }
 
 CTahoOpt::~CTahoOpt()
@@ -121,10 +127,16 @@ void CTahoOpt::setZipPath(QString path)
     ui->le_zip->setText(QDir::toNativeSeparators(path));
 }
 
+QString	CTahoOpt::getOffDirPath()
+{
+    return ui->la_offDir->text();
+}
+
 void CTahoOpt::setOffDirPath(QString path)
 {
     ui->la_offDir->setText(path);
 }
+
 QString	CTahoOpt::getZipPar()
 {
     return ui->le_parKMZ->text();
@@ -144,6 +156,7 @@ void CTahoOpt::setUnGzPar(QString par)
 {
     ui->le_parGZ->setText(par);
 }
+
 void CTahoOpt::changeEvent(QEvent *e)
 {
     if (e->type() == QEvent::LanguageChange)
@@ -151,3 +164,32 @@ void CTahoOpt::changeEvent(QEvent *e)
         ui->retranslateUi(this);
     }
 }
+
+void CTahoOpt::on_pb_offDir_clicked()
+{
+    const auto path_neu= QFileDialog::getExistingDirectory(this,tr("OfflineDir"),getOffDirPath());
+    if(path_neu.isEmpty())
+        return;
+    setOffDirPath(QDir::toNativeSeparators(path_neu));
+}
+
+void CTahoOpt::onButtonBox_clicked(QAbstractButton * btn)
+{
+    if (btn == m_saveButton)
+    {
+        saveOptions();
+    }
+}
+
+void CTahoOpt::saveOptions()
+{
+    QSettings settings("Dimitri-Junker.de","Taho");
+    settings.setValue("language",tr("de"));
+    settings.setValue("zip",getZipPath());
+    settings.setValue("zippar",getZipPar());
+    settings.setValue("ungzpar",getUnGzPar());
+    settings.setValue("OfflineDir",getOffDirPath());
+    settings.setValue("maxThreads",m_tasks);
+    settings.setValue("OsmUrl",m_osmUrl);
+    settings.setValue("version",m_version);
+ }
