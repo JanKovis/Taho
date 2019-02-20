@@ -4,3 +4,4 @@ SUBDIRS += \
     Taho \
     myLibsQT
 
+Taho.depends = myLibsQT
