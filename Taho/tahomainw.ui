@@ -107,6 +107,18 @@
       </property>
       <item>
        <widget class="QPushButton" name="pb_doTaho">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Erstelle Karten</string>
         </property>
@@ -150,6 +162,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pb_quit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Beenden</string>
         </property>
@@ -829,11 +847,11 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Minimum</enum>
+       <enum>QSizePolicy::Preferred</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
+        <width>20</width>
         <height>20</height>
        </size>
       </property>
@@ -847,7 +865,7 @@
      <x>0</x>
      <y>0</y>
      <width>761</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatei">
