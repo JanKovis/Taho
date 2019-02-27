@@ -23,17 +23,10 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=SetupFiles
-OutputBaseFilename=taho64_setup_{#AppVersion4FN}
+OutputBaseFilename=taho32_setup_{#AppVersion4FN}
 LicenseFile=..\Docu\Lizenz_en.txt
 Compression=lzma
 SolidCompression=yes
-; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
-; anything but x64.
-ArchitecturesAllowed=x64
-; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
-; done in "64-bit mode" on x64, meaning it should use the native
-; 64-bit Program Files directory and the 64-bit view of the registry.
-ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "..\Docu\Lizenz_en.txt"
@@ -45,7 +38,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 
 [Files]
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\Docu\GNU LGPL v2.1_DE.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Docu\GNU LGPL v2.1_EN.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Docu\GNU LGPL v2.1_FR.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
@@ -57,13 +50,13 @@ Source: "..\Docu\lisezmoi.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Docu\readme.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
