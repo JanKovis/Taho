@@ -22,16 +22,16 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputDir=SetupFiles
+OutputDir=..\bin
 OutputBaseFilename=taho32_setup_{#AppVersion4FN}
-LicenseFile=..\Docu\Lizenz_en.txt
+LicenseFile=..\Taho\Docu\Lizenz_en.txt
 Compression=lzma
 SolidCompression=yes
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "..\Docu\Lizenz_en.txt"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"; LicenseFile: ..\Docu\Lizenz_fr.txt
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: ..\Docu\Lizenz_de.txt
+Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "..\Taho\Docu\Lizenz_en.txt"
+Name: "french"; MessagesFile: "compiler:Languages\French.isl"; LicenseFile: ..\Taho\Docu\Lizenz_fr.txt
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: ..\Taho\Docu\Lizenz_de.txt
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -39,15 +39,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "..\Docu\GNU LGPL v2.1_DE.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\GNU LGPL v2.1_EN.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\GNU LGPL v2.1_FR.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\gpl-3.0_de.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\gpl-3.0_en.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\gpl-3.0_fr.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\liesmich.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\lisezmoi.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Docu\readme.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
+Source: "..\Taho\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
+Source: "..\Taho\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
