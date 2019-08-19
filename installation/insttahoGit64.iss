@@ -22,9 +22,9 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputDir=G:\upload\EIGENES\OSM\Taho\Inno
+OutputDir=..\bin
 OutputBaseFilename=taho64_setup_{#AppVersion4FN}
-LicenseFile=Docu\Lizenz_en.txt
+LicenseFile=..\Taho\Docu\Lizenz_en.txt
 Compression=lzma
 SolidCompression=yes
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
@@ -36,34 +36,27 @@ ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "Docu\Lizenz_en.txt"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"; LicenseFile: Docu\Lizenz_fr.txt
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: Docu\Lizenz_de.txt
+Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "..\Taho\Docu\Lizenz_en.txt"
+Name: "french"; MessagesFile: "compiler:Languages\French.isl"; LicenseFile: ..\Taho\Docu\Lizenz_fr.txt
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: ..\Taho\Docu\Lizenz_de.txt
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 
 [Files]
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Docu\GNU LGPL v2.1_DE.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\GNU LGPL v2.1_EN.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\GNU LGPL v2.1_FR.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\gpl-3.0_de.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\gpl-3.0_en.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\gpl-3.0_fr.htm"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\liesmich.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\lisezmoi.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Docu\readme.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
-Source: "build-Taho-Desktop_Qt_5_12_0_MinGW_64_bit-Release\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\Taho\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
+Source: "..\Taho\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
+Source: "..\Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
+Source: "..\..\build-dyj-Desktop_Qt_5_12_0_MinGW_64_bit-Release\Taho\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

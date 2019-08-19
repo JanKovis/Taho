@@ -938,7 +938,7 @@ void TahoMainW::on_actionInfo_triggered()
     urlDownload::downloadFile("http://whatsmyuseragent.com/", "uaid_en.html");
     urlDownload::downloadFile("http://www.infowebmaster.fr/outils/mon-user-agent.php", "uaid_fr.html");
 
-
+    urlDownload::downloadFile("http://osmid.uzice.net/tiletest/index.php?&z=7&x=73&y=45.png", "uzic.png");
 
     QString str=this->windowTitle();
     QString vers=QString("%1 (%2)").arg(str.mid(4)).arg(__DATE__);
